@@ -166,4 +166,71 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 });
 
 
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+
+    const currentSpot = await Spot.findByPk(req.params.spotId)
+    if (!currentSpot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+    const { url } = req.body;
+
+    const newImage = Image.build({
+        url,
+        userId: req.user.id,
+        spotId: req.params.spotId,
+        previewImage: true
+    });
+
+    await newImage.save();
+    return res.json(newImage)
+});
+
+
+router.put('/:spotId', requireAuth, validateSpot, async(req, res) => {
+    const theSpot = await Spot.findByPk(req.params.spotId);
+    if (!theSpot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    theSpot.address = address;
+    theSpot.city = city;
+    theSpot.state = state;
+    theSpot.country = country;
+    theSpot.lat = lat;
+    theSpot.lng = lng;
+    theSpot.name = name;
+    theSpot.description = description;
+    theSpot.price = price;
+    await theSpot.save();
+
+    return res.json(theSpot);
+})
+
+
+router.delete('/:spotId', requireAuth, async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+    await spot.destroy();
+    return res.json({
+        message: 'Successfully deleted',
+        statusCode: 200
+    });
+});
+
+
 module.exports = router;
