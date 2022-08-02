@@ -8,26 +8,23 @@ router.get('/', async(req, res) => {
         attributes: {
             include: [
                 [
-                    // sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"
                     sequelize.literal(`(
                         SELECT AVG(stars)
                         FROM reviews
                         WHERE reviews.spotId = spot.id
                     )`),
                     "avgRating"
+                ],
+                [
+                    sequelize.literal(`(
+                        SELECT url
+                        FROM images
+                        WHERE images.spotId = spot.id
+                    )`),
+                    "previewImage"
                 ]
             ]
-        },
-        include: [
-            {
-                model: Review,
-                attributes: []
-            },
-            {
-                model: Image,
-                attributes: ['url']
-            }
-        ]
+        }
     });
 
     res.json(allSpots);
