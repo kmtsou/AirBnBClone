@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { requireAuth } = require('../../utils/auth')
 
 const { User, Review, Booking, Spot, Image, sequelize } = require('../../db/models');
 
@@ -84,6 +85,25 @@ router.get('/:spotId', async (req, res) => {
     return res.json(spotById);
 });
 
+
+router.post('/', requireAuth, async (req, res) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const newSpot = Spot.build({
+        ownerId: req.user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    });
+
+    return res.send(newSpot);
+});
 
 
 module.exports = router;
