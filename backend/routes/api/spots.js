@@ -88,7 +88,7 @@ router.get('/:spotId', async (req, res) => {
         include: [
             {
                 model: Image,
-                attributes: ['id', 'url']
+                attributes: ['id', 'url', 'spotId']
             },
             {
                 model: User,
@@ -181,8 +181,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     const newImage = Image.build({
         url,
         userId: req.user.id,
-        spotId: req.params.spotId,
-        previewImage: true
+        spotId: req.params.spotId
     });
 
     await newImage.save();
