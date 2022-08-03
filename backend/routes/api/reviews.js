@@ -38,12 +38,22 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             statusCode: 404
         });
     };
-    if (theReview[0].dataValues.userId !== req.user.id) {
+    if (theReview.userId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
         err.status = 403;
         return next(err);
+    };
+    const reviewCount = await Image.count({
+        where: {reviewId: req.params.reviewId}
+    });
+    if (reviewCount > 10) {
+        res.status(403);
+        return res.json({
+            message: "Maximum number of images for this resource was reached",
+            statusCode: 403
+        });
     };
 
     const { url, previewImage } = req.body;
@@ -56,6 +66,41 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     });
     await newImage.save();
     return res.json(newImage);
+})
+
+const validateReview = [
+    check('review')
+        .exists({checkFalsy: true})
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({checkFalsy: true})
+        .isInt({min: 1, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+];
+
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+    const theReview = await Review.findByPk(req.params.reviewId);
+    if (!theReview) {
+        res.status(404);
+        return res.json({
+            message: "Review couldn't be found",
+            statusCode: 404
+        });
+    };
+    if (theReview.userId !== req.user.id) {
+        const err = new Error('Unauthorized user');
+        err.title = 'Unauthorized user';
+        err.errors = ['Unauthorized user'];
+        err.status = 403;
+        return next(err);
+    };
+
+    const { review, stars } = req.body;
+    theReview.review = review;
+    theReview.stars = stars;
+    await theReview.save();
+    return res.json(theReview);
 })
 
 module.exports = router;

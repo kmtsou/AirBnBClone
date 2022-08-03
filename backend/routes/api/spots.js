@@ -176,7 +176,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             statusCode: 404
         });
     };
-    if (currentSpot[0].dataValues.ownerId !== req.user.id) {
+    if (currentSpot.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
@@ -207,7 +207,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
             statusCode: 404
         });
     };
-    if (theSpot[0].dataValues.ownerId !== req.user.id) {
+    if (theSpot.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
@@ -240,7 +240,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
             statusCode: 404
         });
     };
-    if (spot[0].dataValues.ownerId !== req.user.id) {
+    if (spot.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
