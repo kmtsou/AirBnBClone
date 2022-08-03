@@ -166,7 +166,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 });
 
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
     const currentSpot = await Spot.findByPk(req.params.spotId)
     if (!currentSpot) {
@@ -176,6 +176,14 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
             statusCode: 404
         });
     };
+    if (currentSpot.ownerId !== req.user.id) {
+        const err = new Error('Unauthorized user');
+        err.title = 'Unauthorized user';
+        err.errors = ['Unauthorized user'];
+        err.status = 403;
+        return next(err);
+    }
+
     const { url } = req.body;
 
     const newImage = Image.build({
@@ -189,7 +197,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 });
 
 
-router.put('/:spotId', requireAuth, validateSpot, async(req, res) => {
+router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
     const theSpot = await Spot.findByPk(req.params.spotId);
     if (!theSpot) {
         res.status(404);
@@ -198,6 +206,13 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res) => {
             statusCode: 404
         });
     };
+    if (currentSpot.ownerId !== req.user.id) {
+        const err = new Error('Unauthorized user');
+        err.title = 'Unauthorized user';
+        err.errors = ['Unauthorized user'];
+        err.status = 403;
+        return next(err);
+    }
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     theSpot.address = address;
@@ -215,7 +230,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res) => {
 })
 
 
-router.delete('/:spotId', requireAuth, async (req, res) => {
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
         res.status(404);
@@ -224,6 +239,14 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
             statusCode: 404
         });
     };
+    if (currentSpot.ownerId !== req.user.id) {
+        const err = new Error('Unauthorized user');
+        err.title = 'Unauthorized user';
+        err.errors = ['Unauthorized user'];
+        err.status = 403;
+        return next(err);
+    }
+
     await spot.destroy();
     return res.json({
         message: 'Successfully deleted',
