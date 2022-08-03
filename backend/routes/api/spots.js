@@ -184,10 +184,11 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    const { url } = req.body;
+    const { url, previewImage } = req.body;
 
     const newImage = Image.build({
         url,
+        previewImage,
         userId: req.user.id,
         spotId: req.params.spotId
     });
@@ -206,7 +207,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
             statusCode: 404
         });
     };
-    if (currentSpot.ownerId !== req.user.id) {
+    if (theSpot.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
