@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         review: 'It is a great place',
-        stars: 10,
+        stars: 1,
         userId: 1,
         spotId: 2
       }

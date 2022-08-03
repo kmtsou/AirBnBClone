@@ -142,7 +142,7 @@ const validateSpot = [
         .exists({checkFalsy: true})
         .withMessage("Price per day is required"),
     handleValidationErrors
-]
+];
 
 router.post('/', requireAuth, validateSpot, async (req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -176,7 +176,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             statusCode: 404
         });
     };
-    if (currentSpot.ownerId !== req.user.id) {
+    if (currentSpot[0].dataValues.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
@@ -207,7 +207,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
             statusCode: 404
         });
     };
-    if (theSpot.ownerId !== req.user.id) {
+    if (theSpot[0].dataValues.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
@@ -240,7 +240,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
             statusCode: 404
         });
     };
-    if (currentSpot.ownerId !== req.user.id) {
+    if (spot[0].dataValues.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];
@@ -281,7 +281,18 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.json(spotReviews);
 });
 
-router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+const validateReview = [
+    check('review')
+        .exists({checkFalsy: true})
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({checkFalsy: true})
+        .isInt({min: 1, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+];
+
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
 
     const theSpot = await Spot.findByPk(req.params.spotId)
     if (!theSpot) {
@@ -291,6 +302,17 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
             statusCode: 404
         });
     };
+    const userReview = await Spot.findByPk(req.params.spotId, {
+        include: {model: Review, attributes: ['userId']},
+        where: {userId: req.user.id}
+    })
+    if (userReview) {
+        res.status(403);
+        return res.json({
+            message: "User already has a review for this spot",
+            statusCode: 403
+        })
+    }
 
     const { review, stars } = req.body;
 
@@ -302,6 +324,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     });
 
     await newReview.save();
+    res.status(201);
     return res.json(newReview);
 })
 

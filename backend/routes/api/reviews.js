@@ -11,12 +11,16 @@ router.get('/current', requireAuth, async (req, res) => {
         where: { ownerId: req.user.id },
         include: [
             {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
                 model: Spot,
                 attributes: {exclude: ['createdAt', 'updatedAt']}
             },
             {
                 model: Image,
-                attributes: {exclude: ['createdAt', 'updatedAt']}
+                attributes: ['id', 'reviewId', 'url']
             }
         ]
     });
@@ -24,5 +28,34 @@ router.get('/current', requireAuth, async (req, res) => {
 });
 
 
+router.post('/:reviewId/images', requireAuth, async (req, res) => {
+
+    const theReview = await Review.findByPk(req.params.reviewId);
+    if (!theReview) {
+        res.status(404);
+        return res.json({
+            message: "Review couldn't be found",
+            statusCode: 404
+        });
+    };
+    if (theReview[0].dataValues.userId !== req.user.id) {
+        const err = new Error('Unauthorized user');
+        err.title = 'Unauthorized user';
+        err.errors = ['Unauthorized user'];
+        err.status = 403;
+        return next(err);
+    };
+
+    const { url, previewImage } = req.body;
+
+    const newImage = Image.build({
+        url,
+        previewImage,
+        userId: req.user.id,
+        reviewId: req.params.reviewId
+    });
+    await newImage.save();
+    return res.json(newImage);
+})
 
 module.exports = router;
