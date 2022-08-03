@@ -256,4 +256,54 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 });
 
 
+router.get('/:spotId/reviews', async (req, res) => {
+    const spotReviews = await Review.findAll({
+        where: {spotId: req.params.spotId},
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: Image,
+                attributes: ['id', 'reviewId', 'url']
+            }
+        ]
+    });
+    if (!spotReviews) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    }
+
+    res.json(spotReviews);
+});
+
+router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+
+    const theSpot = await Spot.findByPk(req.params.spotId)
+    if (!theSpot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+
+    const { review, stars } = req.body;
+
+    const newReview = Review.build({
+        review,
+        stars,
+        userId: req.user.id,
+        spotId: req.params.spotId
+    });
+
+    await newReview.save();
+    return res.json(newReview);
+})
+
+
 module.exports = router;
