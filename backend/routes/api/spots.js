@@ -5,8 +5,48 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation.js');
 
 const { User, Review, Booking, Spot, Image, sequelize } = require('../../db/models');
+const { Op } = require('sequelize');
 
-router.get('/', async (req, res) => {
+const validateSearch = [
+    check('page')
+        .isInt({min: 1, max: 20}),
+    check('size')
+        .isInt({min: 1, max: 20}),
+    check('minLat')
+        .isDecimal(),
+    check('maxLat')
+        .isDecimal(),
+    check('minLng')
+        .isDecimal(),
+    check('maxLng')
+        .isDecimal,
+    check('minPrice')
+        .isInt({min: 0}),
+    check('maxPrice')
+        .isInt({min: 0}),
+    handleValidationErrors
+];
+
+router.get('/', validateSearch, async (req, res) => {
+
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    if (!page) {page = 1;};
+    if (!size) {size = 20};
+    page = parseInt(page);
+    size = parseInt(size);
+    const pagination = {}
+    if (page >= 1 && size >= 1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+    };
+    let where = {};
+    if (minLat) {where.lat = { [Op.gte]: parseInt(minLat) }};
+    if (maxLat) {where.lat = { [Op.lte]: parseInt(maxLat) }};
+    if (minLng) {where.lng = { [Op.gte]: parseInt(minLng) }};
+    if (maxLng) {where.lng = { [Op.lte]: parseInt(maxLng) }};
+    if (minPrice) {where.price = { [Op.gte]: parseInt(minPrice) }};
+    if (maxPrice) {where.price = { [Op.lte]: parseInt(minPrice) }};
+
     const allSpots = await Spot.findAll({
         attributes: {
             include: [
@@ -27,7 +67,9 @@ router.get('/', async (req, res) => {
                     "previewImage"
                 ]
             ]
-        }
+        },
+        where,
+        ...pagination
     });
 
     return res.json(allSpots);
