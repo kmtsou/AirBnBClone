@@ -20,7 +20,7 @@ router.use('/reviews', reviewsRouter);
 
 router.use('/bookings', bookingsRouter);
 
-router.user('/images', imagesRouter);
+router.use('/images', imagesRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
