@@ -348,6 +348,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     }
     else {
         const ownerSpotBookings = await Booking.findAll({
+            where: {spotId: req.params.spotId},
             include: {model: User, attributes: ['id', 'firstName', 'lastName']}
         });
         return res.json(ownerSpotBookings);
@@ -383,9 +384,8 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) 
     });
 
     const { startDate, endDate } = req.body;
-
-    spotBookings.array.forEach(booking => {
-        if (booking.startDate < startDate && endDate < booking.endDate) {
+    spotBookings.forEach(booking => {
+        if (booking.dataValues.startDate <= new Date(startDate) && new Date(endDate) <= booking.dataValues.endDate) {
             res.status(403);
             return res.json({
                 message: "Sorry, this spot is already booked for the specified dates",
