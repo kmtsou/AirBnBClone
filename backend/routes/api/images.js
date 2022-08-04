@@ -6,8 +6,8 @@ const { handleValidationErrors } = require('../../utils/validation.js');
 
 const { User, Review, Booking, Spot, Image, sequelize } = require('../../db/models');
 
-router.delete('/:imageId', requireAuth, async (req, res) => {
-    const image = await Image.findByPk(req.params.imagesId);
+router.delete('/:imageId', requireAuth, async (req, res, next) => {
+    const image = await Image.findByPk(req.params.imageId);
     if (!image) {
         res.status(404);
         return res.json({

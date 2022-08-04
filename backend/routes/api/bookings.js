@@ -24,7 +24,7 @@ const validateBooking = [
     handleValidationErrors
 ];
 
-router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
+router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) => {
     const booking = await Booking.findByPk(req.params.bookingId);
     if (!booking){
         res.status(404);
@@ -56,7 +56,7 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     return res.json(booking);
 });
 
-router.delete('/:bookingId', requireAuth, async (req, res) => {
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     const booking = await Booking.findByPk(req.params.bookingId);
     if (!booking) {
         res.status(404);
@@ -73,18 +73,11 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
             statusCode: 403
         });
     };
-    if (booking.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
-        err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
-        err.status = 403;
-        return next(err);
-    };
 
     const spotOwner = await Booking.findByPk( req.params.bookingId,{
         include: {model: Spot}
     });
-    if (spotOwner.ownerId !== req.user.id) {
+    if (booking.userId !== req.user.id && spotOwner.Spot.ownerId !== req.user.id) {
         const err = new Error('Unauthorized user');
         err.title = 'Unauthorized user';
         err.errors = ['Unauthorized user'];

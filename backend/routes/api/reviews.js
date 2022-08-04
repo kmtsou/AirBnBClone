@@ -28,7 +28,7 @@ router.get('/current', requireAuth, async (req, res) => {
 });
 
 
-router.post('/:reviewId/images', requireAuth, async (req, res) => {
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
     const theReview = await Review.findByPk(req.params.reviewId);
     if (!theReview) {
@@ -79,7 +79,7 @@ const validateReview = [
     handleValidationErrors
 ];
 
-router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
     const theReview = await Review.findByPk(req.params.reviewId);
     if (!theReview) {
         res.status(404);
@@ -104,7 +104,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 });
 
 
-router.delete('/:reviewId', requireAuth, async (req, res) => {
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const review = await Review.findByPk(req.params.reviewId);
     if (!review) {
         res.status(404);

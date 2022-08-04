@@ -27,7 +27,7 @@ const validateSearch = [
     handleValidationErrors
 ];
 
-router.get('/', validateSearch, async (req, res) => {
+router.get('/', async (req, res) => {
 
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
     if (!page) {page = 1;};
@@ -405,7 +405,7 @@ const validateBooking = [
     handleValidationErrors
 ];
 
-router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) => {
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
         res.status(404);
