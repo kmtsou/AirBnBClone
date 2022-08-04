@@ -30,9 +30,11 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id);
       }
     }
-    static async signup({ username, email, password }) {
+    static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
+        firstName,
+        lastName,
         username,
         email,
         hashedPassword
@@ -46,9 +48,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Spot, {foreignKey: 'ownerId', onDelete: 'CASCADE'});
+      User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE'});
+      User.hasMany(models.Booking, {foreignKey: 'userId', onDelete: 'CASCADE'});
+      User.hasMany(models.Image, {foreignKey: 'userId', onDelete: 'CASCADE'});
     }
   }
   User.init({
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
