@@ -352,7 +352,53 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         });
         return res.json(ownerSpotBookings);
     };
+});
 
+const validateBooking = [
+    check('endDate')
+        .exists({checkFalsy: true})
+        .isAfter(this.startDate)
+        .withMessage("endDate cannot be on or before startDate"),
+    handleValidationErrors
+];
+
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+    if (spot.ownerId === req.user.id) {
+        const err = new Error('Spot owner cannot book spot');
+        err.title = 'Unauthorized user';
+        err.errors = ['Spot owner cannot book spot'];
+        err.status = 403;
+        return next(err);
+    };
+    // if () {
+    //     res.status(403);
+    //     return res.json({
+    //         message: "Sorry, this spot is already booked for the specified dates",
+    //         statusCode: 403,
+    //         errors: {
+    //             startDate: "Start date conflicts with an existing booking",
+    //             endDate: "End date conflicts with an existing booking"
+    //         }
+    //     })
+    // }
+
+    const { startDate, endDate } = req.body;
+    const newBooking = Booking.build({
+        startDate,
+        endDate,
+        spotId: req.params.spotId,
+        userId: req.user.id
+    });
+    await newBooking.save();
+    return res.json(newBooking);
 });
 
 
