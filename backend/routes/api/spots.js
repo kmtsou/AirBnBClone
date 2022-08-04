@@ -327,7 +327,33 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     await newReview.save();
     res.status(201);
     return res.json(newReview);
-})
+});
+
+
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+    const spotCheck = await Spot.findByPk(req.params.spotId);
+    if (!spotCheck) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+    if (spotCheck.ownerId !== req.user.id) {
+        const spotBookings = await Booking.findAll({
+            where: {spotId: req.params.spotId},
+            attributes: ['spotId', 'startDate', 'endDate']
+        });
+        return res.json(spotBookings);
+    }
+    else {
+        const ownerSpotBookings = await Booking.findAll({
+            include: {model: User, attributes: ['id', 'firstName', 'lastName']}
+        });
+        return res.json(ownerSpotBookings);
+    };
+
+});
 
 
 module.exports = router;
