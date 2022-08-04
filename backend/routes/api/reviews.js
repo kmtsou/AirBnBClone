@@ -8,7 +8,7 @@ const { User, Review, Booking, Spot, Image, sequelize } = require('../../db/mode
 
 router.get('/current', requireAuth, async (req, res) => {
     const currentReviews = await Review.findAll({
-        where: { ownerId: req.user.id },
+        where: { userId: req.user.id },
         include: [
             {
                 model: User,

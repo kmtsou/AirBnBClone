@@ -270,7 +270,8 @@ router.get('/:spotId/reviews', async (req, res) => {
             }
         ]
     });
-    if (!spotReviews) {
+    const spotCheck = await Spot.findByPk(req.params.spotId);
+    if (!spotCheck) {
         res.status(404);
         return res.json({
             message: "Spot couldn't be found",
@@ -302,9 +303,9 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
             statusCode: 404
         });
     };
-    const userReview = await Spot.findByPk(req.params.spotId, {
-        include: {model: Review, attributes: ['userId']},
-        where: {userId: req.user.id}
+    const userReview = await Review.findOne({
+        include: {model: Spot},
+        where: {userId: req.user.id, spotId: req.params.spotId}
     })
     if (userReview) {
         res.status(403);
