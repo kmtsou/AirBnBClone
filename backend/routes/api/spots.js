@@ -9,25 +9,41 @@ const { Op } = require('sequelize');
 
 const validateSearch = [
     check('page')
-        .isInt({min: 1, max: 20}),
+        .optional()
+        .isInt({min: 1, max: 20})
+        .withMessage("Page must be greater than or equal to 1"),
     check('size')
-        .isInt({min: 1, max: 20}),
+        .optional()
+        .isInt({min: 1, max: 20})
+        .withMessage("Size must be greater than or equal to 1"),
     check('minLat')
-        .isDecimal(),
+        .optional()
+        .isDecimal()
+        .withMessage("Minimum latitude is invalid"),
     check('maxLat')
-        .isDecimal(),
+        .optional()
+        .isDecimal()
+        .withMessage("Maximum latitude is invalid"),
     check('minLng')
-        .isDecimal(),
+        .optional()
+        .isDecimal()
+        .withMessage("Minimum longitude is invalid"),
     check('maxLng')
-        .isDecimal,
+        .optional()
+        .isDecimal()
+        .withMessage("Maximum longtude is invalid"),
     check('minPrice')
-        .isInt({min: 0}),
+        .optional()
+        .isInt({min: 0})
+        .withMessage("Minimum price must be greater than or equal to 0"),
     check('maxPrice')
-        .isInt({min: 0}),
+        .optional()
+        .isInt({min: 0})
+        .withMessage("Maximum price must be greater than or equal to 0"),
     handleValidationErrors
 ];
 
-router.get('/', async (req, res) => {
+router.get('/', validateSearch, async (req, res) => {
 
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
     if (!page) {page = 1;};
