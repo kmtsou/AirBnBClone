@@ -84,8 +84,9 @@ router.get('/', validateSearch, async (req, res) => {
                 ]
             ]
         },
-        where,
-        ...pagination
+        include: [{model: Review, attributes: []}, {model: Image, attributes: []}],
+        // where,
+        // ...pagination
     });
 
     return res.json(allSpots);
