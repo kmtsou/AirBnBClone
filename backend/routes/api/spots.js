@@ -69,16 +69,16 @@ router.get('/', validateSearch, async (req, res) => {
                 [
                     sequelize.literal(`(
                         SELECT AVG(stars)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
+                        FROM Reviews
+                        WHERE Reviews.spotId = spot.id
                     )`),
                     "avgRating"
                 ],
                 [
                     sequelize.literal(`(
                         SELECT url
-                        FROM images
-                        WHERE images.spotId = spot.id
+                        FROM Images
+                        WHERE Images.spotId = spot.id
                     )`),
                     "previewImage"
                 ]
@@ -100,16 +100,16 @@ router.get('/current', requireAuth, async (req, res) => {
                 [
                     sequelize.literal(`(
                         SELECT AVG(stars)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
+                        FROM Reviews
+                        WHERE Reviews.spotId = spot.id
                     )`),
                     "avgRating"
                 ],
                 [
                     sequelize.literal(`(
                         SELECT url
-                        FROM images
-                        WHERE images.spotId = spot.id
+                        FROM Images
+                        WHERE Images.spotId = spot.id
                     )`),
                     "previewImage"
                 ]
@@ -128,16 +128,16 @@ router.get('/:spotId', async (req, res) => {
                 [
                     sequelize.literal(`(
                         SELECT COUNT(*)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
+                        FROM Reviews
+                        WHERE Reviews.spotId = spot.id
                     )`),
                     "numReviews"
                 ],
                 [
                     sequelize.literal(`(
                         SELECT AVG(stars)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
+                        FROM Reviews
+                        WHERE Reviews.spotId = spot.id
                     )`),
                     "avgStarRating"
                 ]
