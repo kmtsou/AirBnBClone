@@ -448,7 +448,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
     });
 
     const { startDate, endDate } = req.body;
-    spotBookings.forEach(booking => {
+    for (const booking of spotBookings) {
         if (booking.dataValues.startDate <= new Date(startDate) && new Date(endDate) <= booking.dataValues.endDate) {
             res.status(403);
             return res.json({
@@ -460,7 +460,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
                 }
             });
         };
-    });
+    };
 
     const newBooking = Booking.build({
         startDate,
