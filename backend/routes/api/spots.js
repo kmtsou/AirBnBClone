@@ -64,6 +64,10 @@ router.get('/', validateSearch, async (req, res) => {
     if (maxPrice) {where.price = { [Op.lte]: parseInt(minPrice) }};
 
     const allSpots = await Spot.findAll({
+        include: [
+            {model: Review, attributes: []},
+            {model: Image, attributes: []}
+        ],
         attributes: {
             include: [
                 [
@@ -94,6 +98,10 @@ router.get('/', validateSearch, async (req, res) => {
 
 router.get('/current', requireAuth, async (req, res) => {
     const currentSpots = await Spot.findAll({
+        include: [
+            {model: Review, attributes: []},
+            {model: Image, attributes: []}
+        ],
         where: {ownerId: req.user.id},
         attributes: {
             include: [
