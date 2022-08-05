@@ -64,33 +64,22 @@ router.get('/', validateSearch, async (req, res) => {
     if (maxPrice) {where.price = { [Op.lte]: parseInt(minPrice) }};
 
     const allSpots = await Spot.findAll({
-        include: [
-            {model: Review, attributes: []},
-            {model: Image, attributes: []}
-        ],
         attributes: {
             include: [
                 [
-                    sequelize.literal(`(
-                        SELECT AVG(stars)
-                        FROM Reviews
-                        WHERE Reviews.spotId = spot.id
-                    )`),
-                    "avgRating"
-                ],
-                [
-                    sequelize.literal(`(
-                        SELECT url
-                        FROM Images
-                        WHERE Images.spotId = spot.id
-                    )`),
-                    "previewImage"
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), "avgRating"
                 ]
             ]
         },
-        where,
-        ...pagination
+        include: [
+            {model: Review, attributes: []},
+            {model: Image, attributes: ['url']},
+        ],
+        group: ['Spot.id'],
+        // where,
+        // ...pagination
     });
+
 
     return res.json(allSpots);
 });
@@ -98,10 +87,6 @@ router.get('/', validateSearch, async (req, res) => {
 
 router.get('/current', requireAuth, async (req, res) => {
     const currentSpots = await Spot.findAll({
-        include: [
-            {model: Review, attributes: []},
-            {model: Image, attributes: []}
-        ],
         where: {ownerId: req.user.id},
         attributes: {
             include: [
@@ -122,7 +107,11 @@ router.get('/current', requireAuth, async (req, res) => {
                     "previewImage"
                 ]
             ]
-        }
+        },
+        include: [
+            {model: Review, attributes: []},
+            {model: Image, attributes: []}
+        ],
     });
 
     return res.json(currentSpots);
