@@ -72,16 +72,17 @@ router.get('/', validateSearch, async (req, res) => {
         include: [
             {
                 model: Review, attributes: []
-            },
-            { model: Image, attributes: ['url'] }
+            }
         ],
         group: ['Spot.id']
     });
 
+    const theImages = await Image.findAll({
+        where: {spotId: {[Op.not]: null}}
+    });
+
     let responce = [];
     for (let spot of allSpots) {
-        let url = []
-        if (spot.Images[0]) url = spot.Images[0].url
         let aSpot = {
             spot: spot.id,
             ownerId: spot.ownerId,
@@ -97,11 +98,16 @@ router.get('/', validateSearch, async (req, res) => {
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
             avgRating: spot.dataValues.avgRating,
-            previewImage: url
         };
         responce.push(aSpot);
     };
-
+    for (let i = 0; i < responce.length; i++) {
+        for (let pic of theImages) {
+            if (pic.dataValues.spotId === responce[i].spot) {
+                responce[i].previewImage = pic.dataValues.url
+            }
+        }
+    }
 
 
     return res.json({Spots: responce});
@@ -120,15 +126,16 @@ router.get('/current', requireAuth, async (req, res) => {
             {
                 model: Review, attributes: []
             },
-            { model: Image, attributes: ['url'] }
         ],
         group: ['Spot.id']
     });
 
+    const theImages = await Image.findAll({
+        where: {spotId: {[Op.not]: null}}
+    });
+
     let responce = [];
     for (let spot of currentSpots) {
-        let url = []
-        if (spot.Images[0]) url = spot.Images[0].url
         let aSpot = {
             spot: spot.id,
             ownerId: spot.ownerId,
@@ -144,10 +151,17 @@ router.get('/current', requireAuth, async (req, res) => {
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
             avgRating: spot.dataValues.avgRating,
-            previewImage: url
         };
         responce.push(aSpot);
     };
+
+    for (let i = 0; i < responce.length; i++) {
+        for (let pic of theImages) {
+            if (pic.dataValues.spotId === responce[i].spot) {
+                responce[i].previewImage = pic.dataValues.url
+            }
+        }
+    }
 
     return res.json(responce);
 });
