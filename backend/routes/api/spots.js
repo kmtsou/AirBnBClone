@@ -66,30 +66,45 @@ router.get('/', validateSearch, async (req, res) => {
     const allSpots = await Spot.findAll({
         attributes: {
             include: [
-                [
-                    sequelize.literal(`(
-                        SELECT AVG(stars)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
-                    )`),
-                    "avgRating"
-                ],
-                [
-                    sequelize.literal(`(
-                        SELECT url
-                        FROM images
-                        WHERE images.spotId = spot.id
-                    )`),
-                    "previewImage"
-                ]
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
         },
-        include: [{model: Review, attributes: []}, {model: Image, attributes: []}],
-        // where,
-        // ...pagination
+        include: [
+            {
+                model: Review, attributes: []
+            },
+            { model: Image, attributes: ['url'] }
+        ],
+        group: ['Spot.id']
     });
 
-    return res.json(allSpots);
+    let responce = [];
+    for (let spot of allSpots) {
+        let url = []
+        if (spot.Images[0]) url = spot.Images[0].url
+        let aSpot = {
+            spot: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            avgRating: spot.dataValues.avgRating,
+            previewImage: url
+        };
+        responce.push(aSpot);
+    };
+
+
+
+    return res.json({Spots: responce});
 });
 
 
@@ -98,27 +113,43 @@ router.get('/current', requireAuth, async (req, res) => {
         where: {ownerId: req.user.id},
         attributes: {
             include: [
-                [
-                    sequelize.literal(`(
-                        SELECT AVG(stars)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
-                    )`),
-                    "avgRating"
-                ],
-                [
-                    sequelize.literal(`(
-                        SELECT url
-                        FROM images
-                        WHERE images.spotId = spot.id
-                    )`),
-                    "previewImage"
-                ]
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
-        }
+        },
+        include: [
+            {
+                model: Review, attributes: []
+            },
+            { model: Image, attributes: ['url'] }
+        ],
+        group: ['Spot.id']
     });
 
-    return res.json(currentSpots);
+    let responce = [];
+    for (let spot of currentSpots) {
+        let url = []
+        if (spot.Images[0]) url = spot.Images[0].url
+        let aSpot = {
+            spot: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            avgRating: spot.dataValues.avgRating,
+            previewImage: url
+        };
+        responce.push(aSpot);
+    };
+
+    return res.json(responce);
 });
 
 
@@ -126,25 +157,14 @@ router.get('/:spotId', async (req, res) => {
     const spotById = await Spot.findByPk(req.params.spotId, {
         attributes: {
             include: [
-                [
-                    sequelize.literal(`(
-                        SELECT COUNT(*)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
-                    )`),
-                    "numReviews"
-                ],
-                [
-                    sequelize.literal(`(
-                        SELECT AVG(stars)
-                        FROM reviews
-                        WHERE reviews.spotId = spot.id
-                    )`),
-                    "avgStarRating"
-                ]
+                [sequelize.fn('COUNT', sequelize.col('Reviews.review')), 'numReviews'],
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
         },
         include: [
+            {
+                model: Review, attributes: []
+            },
             {
                 model: Image,
                 attributes: ['id', 'url', 'spotId']
@@ -157,6 +177,39 @@ router.get('/:spotId', async (req, res) => {
         ]
     });
 
+    let Images = []
+    for (let pic of spotById.Images) {
+        if (pic) {
+            Images.push({id: pic.dataValues.id, url: pic.dataValues.url, spotId: pic.dataValues.spotId})
+        }
+    }
+
+    let Owner = {
+        id: spotById.Owner.dataValues.id,
+        firstName: spotById.Owner.dataValues.firstName,
+        lastName: spotById.Owner.dataValues.lastName
+    }
+
+    let responce = {
+        spot: spotById.id,
+        ownerId: spotById.ownerId,
+        address: spotById.address,
+        city: spotById.city,
+        state: spotById.state,
+        country: spotById.country,
+        lat: spotById.lat,
+        lng: spotById.lng,
+        name: spotById.name,
+        description: spotById.description,
+        price: spotById.price,
+        createdAt: spotById.createdAt,
+        updatedAt: spotById.updatedAt,
+        avgRating: spotById.dataValues.avgRating,
+        numReviews: spotById.dataValues.numReviews,
+        Owner,
+        Images
+    };
+
     if (!spotById) {
         res.status(404);
         return res.json({
@@ -165,7 +218,7 @@ router.get('/:spotId', async (req, res) => {
         });
     };
 
-    return res.json(spotById);
+    return res.json(responce);
 });
 
 
