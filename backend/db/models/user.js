@@ -7,8 +7,8 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const {id, username, email} = this;
-      return {id, username, email};
+      const {id, username, email, firstName, lastName} = this;
+      return {id, username, email, firstName, lastName};
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -48,10 +48,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Spot, {foreignKey: 'ownerId', onDelete: 'CASCADE'});
-      User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE'});
-      User.hasMany(models.Booking, {foreignKey: 'userId', onDelete: 'CASCADE'});
-      User.hasMany(models.Image, {foreignKey: 'userId', onDelete: 'CASCADE'});
+      User.hasMany(models.Spot, {foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true});
+      User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true});
+      User.hasMany(models.Booking, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true});
+      User.hasMany(models.Image, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true});
     }
   }
   User.init({

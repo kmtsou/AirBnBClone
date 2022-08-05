@@ -28,7 +28,7 @@ router.get('/current', requireAuth, async (req, res) => {
 });
 
 
-router.post('/:reviewId/images', requireAuth, async (req, res) => {
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
     const theReview = await Review.findByPk(req.params.reviewId);
     if (!theReview) {
@@ -39,9 +39,9 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         });
     };
     if (theReview.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     };
@@ -65,7 +65,12 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         reviewId: req.params.reviewId
     });
     await newImage.save();
-    return res.json(newImage);
+    const responce = {
+        url: url,
+        id: newImage.id,
+        reviewId: req.params.reviewId
+    }
+    return res.json(responce);
 })
 
 const validateReview = [
@@ -79,7 +84,7 @@ const validateReview = [
     handleValidationErrors
 ];
 
-router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
     const theReview = await Review.findByPk(req.params.reviewId);
     if (!theReview) {
         res.status(404);
@@ -89,9 +94,9 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
         });
     };
     if (theReview.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     };
@@ -104,7 +109,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 });
 
 
-router.delete('/:reviewId', requireAuth, async (req, res) => {
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const review = await Review.findByPk(req.params.reviewId);
     if (!review) {
         res.status(404);
@@ -114,9 +119,9 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
         });
     }
     if (review.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }
