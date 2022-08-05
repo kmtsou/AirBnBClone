@@ -75,7 +75,7 @@ router.get('/', validateSearch, async (req, res) => {
             {model: Review, attributes: []},
             {model: Image, attributes: ['url']},
         ],
-        group: ['Spot.id'],
+        group: ['Spot.id', 'Image.id'],
         // where,
         // ...pagination
     });
@@ -91,27 +91,15 @@ router.get('/current', requireAuth, async (req, res) => {
         attributes: {
             include: [
                 [
-                    sequelize.literal(`(
-                        SELECT AVG(stars)
-                        FROM Reviews
-                        WHERE Reviews.spotId = spot.id
-                    )`),
-                    "avgRating"
-                ],
-                [
-                    sequelize.literal(`(
-                        SELECT url
-                        FROM Images
-                        WHERE Images.spotId = spot.id
-                    )`),
-                    "previewImage"
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), "avgRating"
                 ]
             ]
         },
         include: [
             {model: Review, attributes: []},
-            {model: Image, attributes: []}
+            {model: Image, attributes: ['url']}
         ],
+        group: ['Spot.id', 'Image.id']
     });
 
     return res.json(currentSpots);
@@ -123,20 +111,10 @@ router.get('/:spotId', async (req, res) => {
         attributes: {
             include: [
                 [
-                    sequelize.literal(`(
-                        SELECT COUNT(*)
-                        FROM Reviews
-                        WHERE Reviews.spotId = spot.id
-                    )`),
-                    "numReviews"
+                    sequelize.fn('COUNT', sequelize.col('Reviews.review')), "numReviews"
                 ],
                 [
-                    sequelize.literal(`(
-                        SELECT AVG(stars)
-                        FROM Reviews
-                        WHERE Reviews.spotId = spot.id
-                    )`),
-                    "avgStarRating"
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), "avgRating"
                 ]
             ]
         },
@@ -150,7 +128,8 @@ router.get('/:spotId', async (req, res) => {
                 as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
             }
-        ]
+        ],
+        order: ['Spot.id', 'Image,id']
     });
 
     if (!spotById) {
