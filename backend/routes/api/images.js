@@ -16,9 +16,9 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         });
     };
     if (image.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     };

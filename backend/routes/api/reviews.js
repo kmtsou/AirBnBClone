@@ -39,9 +39,9 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         });
     };
     if (theReview.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     };
@@ -65,7 +65,12 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         reviewId: req.params.reviewId
     });
     await newImage.save();
-    return res.json(newImage);
+    const responce = {
+        url: url,
+        id: newImage.id,
+        reviewId: req.params.reviewId
+    }
+    return res.json(responce);
 })
 
 const validateReview = [
@@ -89,9 +94,9 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
         });
     };
     if (theReview.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     };
@@ -114,9 +119,9 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         });
     }
     if (review.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }

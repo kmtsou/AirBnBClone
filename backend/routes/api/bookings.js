@@ -34,9 +34,9 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) =
         });
     };
     if (booking.userId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }
@@ -78,9 +78,9 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         include: {model: Spot}
     });
     if (booking.userId !== req.user.id && spotOwner.Spot.ownerId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }

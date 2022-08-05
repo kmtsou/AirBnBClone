@@ -235,9 +235,9 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         });
     };
     if (currentSpot.ownerId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }
@@ -252,7 +252,13 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     });
 
     await newImage.save();
-    return res.json(newImage)
+    const responce = {
+        url: url,
+        id: newImage.id,
+        spotId: req.params.spotId
+    }
+
+    return res.json(responce)
 });
 
 
@@ -266,9 +272,9 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
         });
     };
     if (theSpot.ownerId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }
@@ -299,9 +305,9 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         });
     };
     if (spot.ownerId !== req.user.id) {
-        const err = new Error('Unauthorized user');
+        const err = new Error('Forbidden');
         err.title = 'Unauthorized user';
-        err.errors = ['Unauthorized user'];
+        err.errors = ['Forbidden'];
         err.status = 403;
         return next(err);
     }
@@ -452,8 +458,8 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
                     startDate: "Start date conflicts with an existing booking",
                     endDate: "End date conflicts with an existing booking"
                 }
-            })
-        }
+            });
+        };
     });
 
     const newBooking = Booking.build({
