@@ -184,7 +184,8 @@ router.get('/:spotId', async (req, res) => {
                 as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
             }
-        ]
+        ],
+        group: ['Spot.id']
     });
 
     const theImages = await Image.findAll({
