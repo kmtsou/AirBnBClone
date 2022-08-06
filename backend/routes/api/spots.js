@@ -180,10 +180,6 @@ router.get('/:spotId', async (req, res) => {
                 model: Review, attributes: []
             },
             {
-                model: Image,
-                attributes: ['id', 'url', 'spotId']
-            },
-            {
                 model: User,
                 as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
@@ -191,8 +187,12 @@ router.get('/:spotId', async (req, res) => {
         ]
     });
 
+    const theImages = await Image.findAll({
+        where: {spotId: req.params.spotId}
+    });
+
     let Images = []
-    for (let pic of spotById.Images) {
+    for (let pic of theImages) {
         if (pic) {
             Images.push({id: pic.dataValues.id, url: pic.dataValues.url, spotId: pic.dataValues.spotId})
         }
