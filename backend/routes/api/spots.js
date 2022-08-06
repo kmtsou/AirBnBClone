@@ -64,6 +64,11 @@ router.get('/', validateSearch, async (req, res) => {
     if (maxPrice) {where.price = { [Op.lte]: parseInt(minPrice) }};
 
     const allSpots = await Spot.findAll({
+        where,
+        ...pagination
+    });
+
+    const theAvg = await Spot.findAll({
         attributes: {
             include: [
                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
@@ -75,8 +80,7 @@ router.get('/', validateSearch, async (req, res) => {
             }
         ],
         group: ['Spot.id']
-    });
-
+    })
     const theImages = await Image.findAll({
         where: {spotId: {[Op.not]: null}}
     });
@@ -96,8 +100,7 @@ router.get('/', validateSearch, async (req, res) => {
             description: spot.description,
             price: spot.price,
             createdAt: spot.createdAt,
-            updatedAt: spot.updatedAt,
-            avgRating: spot.dataValues.avgRating,
+            updatedAt: spot.updatedAt
         };
         responce.push(aSpot);
     };
@@ -105,6 +108,11 @@ router.get('/', validateSearch, async (req, res) => {
         for (let pic of theImages) {
             if (pic.dataValues.spotId === responce[i].spot) {
                 responce[i].previewImage = pic.dataValues.url
+            }
+        }
+        for (let avg of theAvg){
+            if (avg.dataValues.id === responce[i].spot) {
+                responce[i].avgRating = avg.dataValues.avgRating
             }
         }
     }
