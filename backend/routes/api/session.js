@@ -48,11 +48,20 @@ router.post(
             return next(err);
         }
 
-        await setTokenCookie(res, user);
+        let token = await setTokenCookie(res, user);
 
-        return res.json({
-            user
-        });
+        let responce = {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            token: token
+        }
+
+        return res.json(
+            responce
+        );
     }
 );
 
