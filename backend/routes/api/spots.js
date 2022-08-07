@@ -196,6 +196,14 @@ router.get('/:spotId', async (req, res) => {
         group: ['Spot.id', 'Owner.id']
     });
 
+    if (!spotById) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        });
+    };
+
     const theImages = await Image.findAll({
         where: {spotId: req.params.spotId}
     });
@@ -233,13 +241,6 @@ router.get('/:spotId', async (req, res) => {
         Images
     };
 
-    if (!spotById) {
-        res.status(404);
-        return res.json({
-            message: "Spot couldn't be found",
-            statusCode: 404
-        });
-    };
 
     return res.json(responce);
 });
