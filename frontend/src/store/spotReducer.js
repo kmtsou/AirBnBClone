@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const LOAD_SPOTS = 'spots/loadSpots';
 const CREATE_SPOT = 'spots/createSpot';
 const UPDATE_SPOT = 'spots/updateSpot';
@@ -32,16 +34,25 @@ export const deleteSpot = (id) => {
 }
 
 export const thunkGetSpots = () => async dispatch => {
-    const responce = await fetch('/api/spots');
+    const responce = await csrfFetch('/api/spots');
 
     if (responce.ok) {
         const list = await responce.json();
-        dispatch(loadSpots(list));
+        let {Spots} = list
+        dispatch(loadSpots(Spots));
     }
 };
 
+// export const thunkGetOneSpot = (data) => async dispatch => {
+//     const responce = await fetch(`/api/spots/${data.spot}`);
+
+//     if (responce.ok) {
+//         const spot = await responce.json();
+//     }
+// };
+
 export const thunkUpdateSpot = (data) => async dispatch => {
-    const response = await fetch(`/api/spots/${data.id}`, {
+    const response = await csrfFetch(`/api/spots/${data.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -55,7 +66,7 @@ export const thunkUpdateSpot = (data) => async dispatch => {
 }
 
 export const thunkCreateSpot = (data) => async dispatch => {
-    const response = await fetch(`/api/spots/`, {
+    const response = await csrfFetch(`/api/spots/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -69,7 +80,7 @@ export const thunkCreateSpot = (data) => async dispatch => {
 }
 
 export const thunkDeleteSpot = (data) => async dispatch => {
-    const response = await fetch(`/api/spots/${data.id}`, {
+    const response = await csrfFetch(`/api/spots/${data.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -85,11 +96,11 @@ export const thunkDeleteSpot = (data) => async dispatch => {
 const spotReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
-            const allSpots = {};
+            const spots = {};
             action.payload.forEach(spot => {
-                allSpots[payload.id] = spot
+                spots[spot.spot] = spot
             });
-            return { ...allSpots, ...state };
+            return { ...state, ...spots };
         case CREATE_SPOT:
             return { ...state, [action.payload.id]: { ...action.payload } };
         case UPDATE_SPOT:

@@ -6,23 +6,26 @@ import SpotIndexItem from './SpotIndexItem';
 
 const SpotIndex = () => {
     const spots = useSelector(state => state.spots)
-    const spotsArr = Object.values(spots);
+    const user = useSelector(state => state.session.user)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(thunkGetSpots)
+        dispatch(thunkGetSpots())
     }, [dispatch])
 
-    if (!spots) {return null;}
+    if (!spots) { return null; }
+    const spotsArr = Object.values(spots);
 
     return (
         <div>
             <ul>
                 {spotsArr.map(spot => (
-                    <SpotIndexItem spot={spot} key={`spot ${spot.id}`}/>
+                    <SpotIndexItem spot={spot} key={`spot ${spot.spot}`} />
                 ))}
             </ul>
-            <Link to="/reports/new">New Report</Link>
+            {user && (<Link to={`/spots/new`}>
+                <button>Create a Spot</button>
+            </Link>)}
         </div>
     )
 };
