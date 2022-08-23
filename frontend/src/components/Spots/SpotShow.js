@@ -9,6 +9,7 @@ const SpotShow = () => {
   const [errors, setErrors] = useState([]);
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots[spotId]);
+  const user = useSelector(state => state.session.user);
   const deleteSpot = (e) => {
     e.preventDefault();
     dispatch(thunkDeleteSpot(spot.spot)).catch(async (res) => {
@@ -30,6 +31,9 @@ const SpotShow = () => {
         <Link to="/">Back to Spot Index</Link>
       </section>
       <button onClick={deleteSpot}>Delete Spot</button>
+      {user && (<Link to={`/spots/${spotId}/update`}>
+        <button>Update Spot</button>
+      </Link>)}
     </>
   );
 }
