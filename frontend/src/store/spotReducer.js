@@ -38,7 +38,7 @@ export const thunkGetSpots = () => async dispatch => {
 
     if (responce.ok) {
         const list = await responce.json();
-        let {Spots} = list
+        let { Spots } = list
         dispatch(loadSpots(Spots));
     }
 };
@@ -71,7 +71,6 @@ export const thunkCreateSpot = (data) => async dispatch => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
-
     if (response.ok) {
         const spot = await response.json();
         dispatch(createSpot(spot));
@@ -79,16 +78,16 @@ export const thunkCreateSpot = (data) => async dispatch => {
     }
 }
 
-export const thunkDeleteSpot = (data) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${data.id}`, {
+export const thunkDeleteSpot = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        // body: JSON.stringify(id)
     });
 
     if (response.ok) {
         const spot = await response.json();
-        dispatch(deleteSpot(spot));
+        dispatch(deleteSpot(id));
         return spot;
     }
 }
@@ -100,7 +99,7 @@ const spotReducer = (state = {}, action) => {
             action.payload.forEach(spot => {
                 spots[spot.spot] = spot
             });
-            return { ...state, ...spots };
+            return { ...spots };
         case CREATE_SPOT:
             return { ...state, [action.payload.id]: { ...action.payload } };
         case UPDATE_SPOT:

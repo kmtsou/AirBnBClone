@@ -15,12 +15,16 @@ const CreateSpotForm = () => {
     const [price, setPrice] = useState(0);
     const [lat, setLat] = useState(0.0);
     const [lng, setLng] = useState(0.0);
+    const [errors, setErrors] = useState([]);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let floatLat = parseFloat(lat);
-        let floatLng = parseFloat(lng);
+        setErrors([]);
+        // console.log(typeof lat)
+        // let floatLat = parseFloat(lat);
+        // console.log(typeof floatLat)
+        // let floatLng = parseFloat(lng);
         const payload = {
             name,
             address,
@@ -28,14 +32,17 @@ const CreateSpotForm = () => {
             state,
             country,
             description,
-            floatLat,
-            floatLng,
+            lat,
+            lng,
             price
         };
 
-        let createdSpot = await dispatch(thunkCreateSpot(payload));
+        let createdSpot = await dispatch(thunkCreateSpot(payload)).catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
         if (createdSpot) {
-            history.push(`/api/spots/${createdSpot.spot}`)
+            history.push(`/spots/${createdSpot.id}`)
         }
     };
 
