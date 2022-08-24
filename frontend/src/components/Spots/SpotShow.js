@@ -11,6 +11,7 @@ const SpotShow = () => {
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots[spotId]);
   const user = useSelector(state => state.session.user);
+  const reviews = useSelector(state => state.reviews);
   const deleteSpot = (e) => {
     e.preventDefault();
     dispatch(thunkDeleteSpot(spot.spot || spot.id)).catch(async (res) => {
@@ -31,8 +32,8 @@ const SpotShow = () => {
             {spot.address}, {spot.city}, {spot.state}
             </h3>
           </div>
-        Spot ID: {spot?.spot}
-        <div><img src={spot.previewImage} alt='preview'></img></div>
+        Spot ID: {spot.spot || spot.id}
+        <div><img src={spot.previewImage || spot.url} alt='preview'></img></div>
 
         <p>price per night: {spot.price}</p>
         <p>{spot.description}</p>
@@ -40,7 +41,7 @@ const SpotShow = () => {
       </section>
       <section>
         <h4>Reviews:</h4>
-        <ReviewIndex spot={spot}/>
+        <ReviewIndex spot={spot} user={user}/>
       </section>
 
       {user && user.id === spot.ownerId && (

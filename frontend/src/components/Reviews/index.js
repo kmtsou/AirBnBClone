@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkGetSpotReviews } from "../../store/reviewReducer";
+import CreateReviewForm from "./CreateReviewForm";
 import ReviewIndexItem from "./ReviewIndexItem";
-import { clearReviews } from "../../store/reviewReducer";
+// import { clearReviews } from "../../store/reviewReducer";
 
-const ReviewIndex = ({ spot }) => {
+const ReviewIndex = ({ spot, user }) => {
     const dispatch = useDispatch();
     const reviews = useSelector(state => state.reviews)
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
         dispatch(thunkGetSpotReviews(spot.spot || spot.id))
@@ -24,6 +26,10 @@ const ReviewIndex = ({ spot }) => {
                     <ReviewIndexItem review={review} key={`review ${review.id}`}/>
                 ))}
             </div>
+            {user && user.id !== spot.ownerId && (
+            <div>
+                <CreateReviewForm spot={spot}/>
+            </div>)}
         </div>
     )
 };
