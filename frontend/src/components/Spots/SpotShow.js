@@ -2,6 +2,7 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkDeleteSpot } from '../../store/spotReducer';
 import { useState } from 'react';
+import ReviewIndex from '../Reviews';
 
 const SpotShow = () => {
   const dispatch = useDispatch();
@@ -31,11 +32,15 @@ const SpotShow = () => {
             </h3>
           </div>
         Spot ID: {spot?.spot}
-        {/* <img src={spot.previewImage} alt='preview'></img> */}
+        <div><img src={spot.previewImage} alt='preview'></img></div>
 
         <p>price per night: {spot.price}</p>
         <p>{spot.description}</p>
         <Link to="/">Back to Spot Index</Link>
+      </section>
+      <section>
+        <h4>Reviews:</h4>
+        <ReviewIndex spot={spot}/>
       </section>
 
       {user && user.id === spot.ownerId && (

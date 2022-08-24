@@ -42,10 +42,11 @@ export const deleteSpot = (id) => {
     }
 }
 
-export const addImageToSpot = (data) => {
+export const addImageToSpot = (data, id) => {
     return {
         type: ADD_IMAGE_TO_SPOT,
-        payload: data
+        payload: data,
+        id: id
     }
 }
 
@@ -116,7 +117,8 @@ export const thunkAddSpotImage = (data, id) => async dispatch => {
     })
     if (responce.ok) {
         const image = await responce.json();
-        dispatch(addImageToSpot(data))
+        console.log(image)
+        dispatch(addImageToSpot(data, id))
         return image;
     }
 }
@@ -132,13 +134,13 @@ const spotReducer = (state = {}, action) => {
         case CREATE_SPOT:
             return { ...state, [action.payload.id]: { ...action.payload } };
         case UPDATE_SPOT:
-            return { ...state, [action.payload.id]: { ...action.payload } };
+            return { ...state, [action.payload.id]: { ...state[action.payload.id], ...action.payload } };
         case DELETE_SPOT:
             let newState = { ...state }
             delete newState[action.id]
             return newState;
         case ADD_IMAGE_TO_SPOT:
-            return { ...state, [action.payload.id]: { ...action.payload } };
+            return { ...state, [action.id]: { ...state[action.id], ...action.payload } };
         default:
             return state;
     }

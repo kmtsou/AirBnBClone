@@ -3,6 +3,13 @@ import { csrfFetch } from "./csrf";
 const LOAD_REVIEWS = 'reviews/loadReviews';
 const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_REVIEW = 'reviews/deleteReview';
+const CLEAR_REVIEWS = 'reviews/clearReviews';
+
+export const clearReviews = () => {
+    return {
+        type: CLEAR_REVIEWS
+    }
+}
 
 export const loadSpotReviews = (data) => {
     return {
@@ -25,13 +32,12 @@ export const deleteReview = (id) => {
     }
 };
 
-export const thunkGetReviews = (id) => async dispatch => {
+export const thunkGetSpotReviews = (id) => async dispatch => {
     const responce = await csrfFetch(`/api/spots/${id}/reviews`);
 
     if (responce.ok) {
         const list = await responce.json();
-        let { Reviews } = list
-        dispatch(loadSpotReviews(Reviews));
+        dispatch(loadSpotReviews(list));
     }
 };
 
@@ -62,6 +68,20 @@ export const thunkDeleteReview = (id) => async dispatch => {
 
 const reviewReducer = (state = {}, action) => {
     switch (action.type) {
+        case LOAD_REVIEWS:
+            const reviews = {}
+            action.payload.forEach(review => {
+                reviews[review.id] = review
+            });
+            return reviews;
+        case CREATE_REVIEW:
+            return { ...state, [action.payload.id]: { ...action.payload } };
+        case DELETE_REVIEW:
+            let newState = {...state}
+            delete newState[action.id]
+            return newState;
+        case CLEAR_REVIEWS:
+            return {}
         default:
             return state;
     }

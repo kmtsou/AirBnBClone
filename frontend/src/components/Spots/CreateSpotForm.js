@@ -22,10 +22,6 @@ const CreateSpotForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        // console.log(typeof lat)
-        // let floatLat = parseFloat(lat);
-        // console.log(typeof floatLat)
-        // let floatLng = parseFloat(lng);
         const payload = {
             name,
             address,
