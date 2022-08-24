@@ -5,6 +5,7 @@ const CREATE_SPOT = 'spots/createSpot';
 const UPDATE_SPOT = 'spots/updateSpot';
 const DELETE_SPOT = 'spots/deleteSpot';
 // const LOAD_ONE_SPOT = 'spots/loadOneSpot';
+const ADD_IMAGE_TO_SPOT = 'spots/images/addSpotImage'
 
 export const loadSpots = (data) => {
     return {
@@ -41,6 +42,13 @@ export const deleteSpot = (id) => {
     }
 }
 
+export const addImageToSpot = (data) => {
+    return {
+        type: ADD_IMAGE_TO_SPOT,
+        payload: data
+    }
+}
+
 export const thunkGetSpots = () => async dispatch => {
     const responce = await csrfFetch('/api/spots');
 
@@ -61,7 +69,6 @@ export const thunkGetSpots = () => async dispatch => {
 // };
 
 export const thunkUpdateSpot = (data, id) => async dispatch => {
-    console.log(data)
     const response = await csrfFetch(`/api/spots/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -91,14 +98,26 @@ export const thunkCreateSpot = (data) => async dispatch => {
 export const thunkDeleteSpot = (id) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${id}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        // body: JSON.stringify(id)
+        headers: { 'Content-Type': 'application/json' }
     });
 
     if (response.ok) {
         const spot = await response.json();
         dispatch(deleteSpot(id));
         return spot;
+    }
+}
+
+export const thunkAddSpotImage = (data, id) => async dispatch => {
+    const responce = await csrfFetch(`/api/spots/${id}/images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    if (responce.ok) {
+        const image = await responce.json();
+        dispatch(addImageToSpot(data))
+        return image;
     }
 }
 
@@ -118,6 +137,8 @@ const spotReducer = (state = {}, action) => {
             let newState = { ...state }
             delete newState[action.id]
             return newState;
+        case ADD_IMAGE_TO_SPOT:
+            return { ...state, [action.payload.id]: { ...action.payload } };
         default:
             return state;
     }

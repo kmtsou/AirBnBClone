@@ -59,3 +59,12 @@ export const thunkDeleteReview = (id) => async dispatch => {
         return review;
     }
 };
+
+const reviewReducer = (state = {}, action) => {
+    switch (action.type) {
+        default:
+            return state;
+    }
+};
+
+export default reviewReducer;

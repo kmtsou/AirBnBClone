@@ -21,7 +21,7 @@ const SpotIndex = () => {
         <div>
             <ul className='card-container'>
                 {spotsArr.map(spot => (
-                    <SpotIndexItem spot={spot} key={`spot ${spot.spot}`} />
+                    <SpotIndexItem spot={spot} key={`spot ${spot.spot || spot.id}`} />
                 ))}
             </ul>
             {user && (<Link to={`/spots/new`}>

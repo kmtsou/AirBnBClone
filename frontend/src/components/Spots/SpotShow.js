@@ -12,7 +12,7 @@ const SpotShow = () => {
   const user = useSelector(state => state.session.user);
   const deleteSpot = (e) => {
     e.preventDefault();
-    dispatch(thunkDeleteSpot(spot.spot)).catch(async (res) => {
+    dispatch(thunkDeleteSpot(spot.spot || spot.id)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
     });

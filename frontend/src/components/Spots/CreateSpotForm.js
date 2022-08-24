@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { thunkCreateSpot } from '../../store/spotReducer';
+import { thunkCreateSpot, thunkAddSpotImage } from '../../store/spotReducer';
 
 const CreateSpotForm = () => {
     const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const CreateSpotForm = () => {
     const [price, setPrice] = useState(0);
     const [lat, setLat] = useState(0.0);
     const [lng, setLng] = useState(0.0);
+    const [url, setUrl] = useState('');
     const [errors, setErrors] = useState([]);
 
 
@@ -36,11 +37,19 @@ const CreateSpotForm = () => {
             lng,
             price
         };
+        const imagePayload = {
+            url
+        }
 
         let createdSpot = await dispatch(thunkCreateSpot(payload)).catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
         });
+        let createImage = await dispatch(thunkAddSpotImage(imagePayload, createdSpot.id)).catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+
         if (createdSpot) {
             history.push(`/spots/${createdSpot.id}`)
         }
@@ -127,6 +136,15 @@ const CreateSpotForm = () => {
                         value={price}
                         min="0"
                         onChange={e => setPrice(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Preview Image url:
+                    <input
+                        type="text"
+                        value={url}
+                        onChange={e => setUrl(e.target.value)}
                         required
                     />
                 </label>
