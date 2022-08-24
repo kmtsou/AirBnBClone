@@ -140,7 +140,7 @@ const spotReducer = (state = {}, action) => {
             delete newState[action.id]
             return newState;
         case ADD_IMAGE_TO_SPOT:
-            return { ...state, [action.id]: { ...state[action.id], ...action.payload } };
+            return { ...state, [action.id]: { ...state[action.id], previewImage: action.payload } };
         default:
             return state;
     }
