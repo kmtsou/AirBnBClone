@@ -1,8 +1,11 @@
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 // import { useParams } from "react-router-dom";
+
+import DeleteReviewButton from "./DeleteReviewButton";
 
 
 const ReviewIndexItem = ({ review }) => {
+    const user = useSelector(state => state.session.user)
 
     if (!review) return <div>No reviews yet!</div>;
 
@@ -15,6 +18,12 @@ const ReviewIndexItem = ({ review }) => {
             <div>
                 <p>{review.review}</p>
             </div>
+            {user.id === review.userId && (
+                <div>
+                    <DeleteReviewButton review={review} />
+                </div>
+            )}
+
         </div>
     )
 };

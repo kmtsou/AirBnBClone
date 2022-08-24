@@ -3,13 +3,13 @@ import { csrfFetch } from "./csrf";
 const LOAD_REVIEWS = 'reviews/loadReviews';
 const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_REVIEW = 'reviews/deleteReview';
-const CLEAR_REVIEWS = 'reviews/clearReviews';
+// const CLEAR_REVIEWS = 'reviews/clearReviews';
 
-export const clearReviews = () => {
-    return {
-        type: CLEAR_REVIEWS
-    }
-}
+// export const clearReviews = () => {
+//     return {
+//         type: CLEAR_REVIEWS
+//     }
+// }
 
 export const loadSpotReviews = (data) => {
     return {
@@ -80,8 +80,8 @@ const reviewReducer = (state = {}, action) => {
             let newState = {...state}
             delete newState[action.id]
             return newState;
-        case CLEAR_REVIEWS:
-            return {}
+        // case CLEAR_REVIEWS:
+        //     return {}
         default:
             return state;
     }
