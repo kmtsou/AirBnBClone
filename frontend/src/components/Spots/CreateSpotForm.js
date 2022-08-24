@@ -34,7 +34,8 @@ const CreateSpotForm = () => {
             price
         };
         const imagePayload = {
-            url
+            url,
+            previewImage: true
         }
 
         let createdSpot = await dispatch(thunkCreateSpot(payload)).catch(async (res) => {

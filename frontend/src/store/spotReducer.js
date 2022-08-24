@@ -118,7 +118,7 @@ export const thunkAddSpotImage = (data, id) => async dispatch => {
     if (responce.ok) {
         const image = await responce.json();
         console.log(image)
-        dispatch(addImageToSpot(data, id))
+        dispatch(addImageToSpot(data.url, id))
         return image;
     }
 }
