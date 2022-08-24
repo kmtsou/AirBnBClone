@@ -23,17 +23,29 @@ const SpotShow = () => {
     <>
       <section>
         <h1>{spot.name}</h1>
+        <div className='spot-info'>
+          <div>{spot.avgRating}</div>
+          {/* <div>{spot.numReviews}</div> */}
+          <h3>
+            {spot.address}, {spot.city}, {spot.state}
+            </h3>
+          </div>
         Spot ID: {spot?.spot}
-        <img src={spot.previewImage} alt='preview'></img>
-        <h3>{spot.address}, {spot.city}, {spot.state}</h3>
+        {/* <img src={spot.previewImage} alt='preview'></img> */}
+
         <p>price per night: {spot.price}</p>
         <p>{spot.description}</p>
         <Link to="/">Back to Spot Index</Link>
       </section>
-      <button onClick={deleteSpot}>Delete Spot</button>
-      {user && (<Link to={`/spots/${spotId}/update`}>
-        <button>Update Spot</button>
-      </Link>)}
+
+      {user && user.id === spot.ownerId && (
+        <>
+          <button onClick={deleteSpot}>Delete Spot</button>
+          <Link to={`/spots/${spotId}/update`}>
+            <button>Update Spot</button>
+          </Link>
+        </>
+      )}
     </>
   );
 }

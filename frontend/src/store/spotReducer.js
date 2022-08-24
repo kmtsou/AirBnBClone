@@ -4,6 +4,7 @@ const LOAD_SPOTS = 'spots/loadSpots';
 const CREATE_SPOT = 'spots/createSpot';
 const UPDATE_SPOT = 'spots/updateSpot';
 const DELETE_SPOT = 'spots/deleteSpot';
+// const LOAD_ONE_SPOT = 'spots/loadOneSpot';
 
 export const loadSpots = (data) => {
     return {
@@ -11,6 +12,13 @@ export const loadSpots = (data) => {
         payload: data
     }
 }
+
+// export const loadOneSpot = (data) => {
+//     return {
+//         type: LOAD_ONE_SPOT,
+//         payload: data
+//     }
+// }
 
 export const createSpot = (data) => {
     return {
@@ -48,6 +56,7 @@ export const thunkGetSpots = () => async dispatch => {
 
 //     if (responce.ok) {
 //         const spot = await responce.json();
+//         dispatch(loadOneSpot(spot));
 //     }
 // };
 

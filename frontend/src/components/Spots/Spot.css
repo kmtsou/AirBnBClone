@@ -1,0 +1,21 @@
+.spot-base {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 320px;
+    margin: 25px;
+};
+
+.spot-img {
+    height: 320px;
+    width: 300px;
+}
+
+.spot-header {
+    display: flex;
+    justify-content: space-between;
+};
+
+.link-spot {
+    margin: 20px;
+};

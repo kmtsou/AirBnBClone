@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { thunkGetSpots } from '../../store/spotReducer';
 import SpotIndexItem from './SpotIndexItem';
+import './Spots.css';
 
 const SpotIndex = () => {
     const spots = useSelector(state => state.spots)
@@ -18,13 +19,13 @@ const SpotIndex = () => {
 
     return (
         <div>
-            <ul>
+            <ul className='card-container'>
                 {spotsArr.map(spot => (
                     <SpotIndexItem spot={spot} key={`spot ${spot.spot}`} />
                 ))}
             </ul>
             {user && (<Link to={`/spots/new`}>
-                <button>Create a Spot</button>
+                <button className='create-spot-button'>Create a Spot</button>
             </Link>)}
         </div>
     )
