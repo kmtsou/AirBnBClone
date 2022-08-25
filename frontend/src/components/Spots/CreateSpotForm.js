@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkCreateSpot, thunkAddSpotImage } from '../../store/spotReducer';
@@ -17,10 +17,27 @@ const CreateSpotForm = () => {
     const [lng, setLng] = useState(0.0);
     const [url, setUrl] = useState('');
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [validationErrors, setValidationErrors] = useState([]);
+
+    useEffect(() => {
+        let errors = [];
+        if (isNaN(lat)) {
+            errors.push('Please provide a numerical latitude')
+        }
+        if (isNaN(lng)) {
+            errors.push('Please provide a numerical longitude')
+        }
+        setValidationErrors(errors);
+    }, [lat, lng])
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
+        if (validationErrors.length > 0) {
+            return;
+        }
         setErrors([]);
         const payload = {
             name,
@@ -42,10 +59,12 @@ const CreateSpotForm = () => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
         });
-        let createImage = await dispatch(thunkAddSpotImage(imagePayload, createdSpot.id)).catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        });
+        if (createdSpot) {
+            let createImage = await dispatch(thunkAddSpotImage(imagePayload, createdSpot.id)).catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+        }
 
         if (createdSpot) {
             history.push(`/spots/${createdSpot.id}`)
@@ -55,6 +74,16 @@ const CreateSpotForm = () => {
     return (
         <section>
             <form onSubmit={handleSubmit} >
+                {hasSubmitted && validationErrors.length > 0 && (
+                    <div>
+                        The following errors were found:
+                        <ul>
+                            {validationErrors.map((error) => (
+                                <li key={error}>{error}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <label>
                     Spot name:
                     <input
