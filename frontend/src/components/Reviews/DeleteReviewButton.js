@@ -12,7 +12,7 @@ const DeleteReviewButton = ({ review }) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
         });
-        dispatch(thunkGetSpots());
+        dispatch(thunkGetSpots()); // to update avgRating
     }
     return (
         <button onClick={deleteReview}>Delete review</button>

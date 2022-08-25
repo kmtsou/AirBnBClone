@@ -23,7 +23,7 @@ const CreateReviewForm = ({ spot }) => {
         });
         if (createdReview) {
             dispatch(thunkGetSpotReviews(spot.spot || spot.id))
-            dispatch(thunkGetSpots())
+            dispatch(thunkGetSpots()) // to update avgRating
         }
         setReview('');
         setStars(0);
