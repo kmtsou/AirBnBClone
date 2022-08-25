@@ -4,6 +4,10 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import SpotIndex from "./components/Spots";
+import SpotShow from "./components/Spots/SpotShow";
+import CreateSpotForm from "./components/Spots/CreateSpotForm";
+import UpdateSpotForm from "./components/Spots/UpdateSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +23,18 @@ function App() {
         <Switch>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/" exact>
+            <SpotIndex />
+          </Route>
+          <Route path="/spots/new" exact>
+            <CreateSpotForm />
+          </Route>
+          <Route path="/spots/:spotId" exact>
+            <SpotShow />
+          </Route>
+          <Route path="/spots/:spotId/update" exact={true}>
+            <UpdateSpotForm />
           </Route>
         </Switch>
       )}

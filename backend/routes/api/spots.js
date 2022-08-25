@@ -266,7 +266,7 @@ const validateSpot = [
     check('lng')
         .exists({checkFalsy: true})
         .isDecimal()
-        .withMessage("Longgitude is not valid"),
+        .withMessage("Longitude is not valid"),
     check('name')
         .exists({checkFalsy: true})
         .isLength({max: 50})
