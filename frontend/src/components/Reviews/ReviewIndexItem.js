@@ -9,7 +9,6 @@ const ReviewIndexItem = ({ review }) => {
     const user = useSelector(state => state.session.user)
 
     if (!review || !review.User) return <div>No reviews yet!</div>;
-    console.log(review)
 
     return (
         <div>
