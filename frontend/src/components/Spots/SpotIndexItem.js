@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 // import { thunkCreateSpot } from '../../store/spotReducer';
-import './Spot.css';
+import './SpotIndexItem.css';
 
 const SpotIndexItem = ({ spot }) => {
     // const dispatch = useDispatch();

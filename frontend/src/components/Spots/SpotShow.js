@@ -12,13 +12,15 @@ const SpotShow = () => {
   const spot = useSelector(state => state.spots[spotId]);
   const user = useSelector(state => state.session.user);
   const reviews = useSelector(state => state.reviews);
-  const deleteSpot = (e) => {
+  const deleteSpot = async (e) => {
     e.preventDefault();
-    dispatch(thunkDeleteSpot(spot.spot || spot.id)).catch(async (res) => {
+    let deletedSpot = await dispatch(thunkDeleteSpot(spot.spot || spot.id)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
     });
-    history.push('/');
+    if (deletedSpot) {
+      history.push('/');
+    }
   }
   if (!spot) return null;
   return (
@@ -30,8 +32,8 @@ const SpotShow = () => {
           {/* <div>{spot.numReviews}</div> */}
           <h3>
             {spot.address}, {spot.city}, {spot.state}
-            </h3>
-          </div>
+          </h3>
+        </div>
         Spot ID: {spot.spot || spot.id}
         <div><img src={spot.previewImage || spot.url} alt='preview'></img></div>
 
@@ -41,7 +43,7 @@ const SpotShow = () => {
       </section>
       <section>
         <h4>Reviews:</h4>
-        <ReviewIndex spot={spot} user={user}/>
+        <ReviewIndex spot={spot} user={user} />
       </section>
 
       {user && user.id === spot.ownerId && (
