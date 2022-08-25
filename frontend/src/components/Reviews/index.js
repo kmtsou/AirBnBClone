@@ -17,19 +17,33 @@ const ReviewIndex = ({ spot, user }) => {
     if (!reviews) return null;
     const reviewArr = Object.values(reviews);
     const filteredArr = reviewArr.filter(review => review.spotId === (spot.spot || spot.id))
-    if (filteredArr.length === 0) return <div>No reviews yet!</div>
+
+    if (filteredArr.length === 0) return (<>
+        <div>No reviews yet!</div>
+        {user && user.id !== spot.ownerId && (
+            <div>
+                <CreateReviewForm spot={spot} />
+            </div>)}
+    </>)
+
+    let madeAReview = false;
+    for (let i = 0; i < filteredArr.length; i++) {
+        if (user && user.id === filteredArr[i].userId) {
+            madeAReview = true;
+        }
+    }
 
     return (
         <div>
             <div>
                 {filteredArr.map(review => (
-                    <ReviewIndexItem review={review} key={`review ${review.id}`}/>
+                    <ReviewIndexItem review={review} key={`review ${review.id}`} />
                 ))}
             </div>
-            {user && user.id !== spot.ownerId && (
-            <div>
-                <CreateReviewForm spot={spot}/>
-            </div>)}
+            {user && user.id !== spot.ownerId && !madeAReview && (
+                <div>
+                    <CreateReviewForm spot={spot} />
+                </div>)}
         </div>
     )
 };

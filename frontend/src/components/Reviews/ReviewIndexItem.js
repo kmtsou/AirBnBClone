@@ -18,7 +18,7 @@ const ReviewIndexItem = ({ review }) => {
             <div>
                 <p>{review.review}</p>
             </div>
-            {user.id === review.userId && (
+            {user && user.id === review.userId && (
                 <div>
                     <DeleteReviewButton review={review} />
                 </div>

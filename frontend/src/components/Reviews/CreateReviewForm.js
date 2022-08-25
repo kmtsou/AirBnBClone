@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateReview } from "../../store/reviewReducer";
 
-const CreateReviewForm = ({spot}) => {
+const CreateReviewForm = ({ spot }) => {
     const dispatch = useDispatch();
+    const reviews = useSelector(state => state.reviews)
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [errors, setErrors] = useState([]);
@@ -19,6 +20,8 @@ const CreateReviewForm = ({spot}) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
         });
+        setReview('');
+        setStars(0);
     }
 
     return (
