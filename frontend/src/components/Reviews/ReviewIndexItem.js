@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import spotReducer from "../../store/spotReducer";
 // import { useParams } from "react-router-dom";
 
 import DeleteReviewButton from "./DeleteReviewButton";
@@ -7,7 +8,8 @@ import DeleteReviewButton from "./DeleteReviewButton";
 const ReviewIndexItem = ({ review }) => {
     const user = useSelector(state => state.session.user)
 
-    if (!review) return <div>No reviews yet!</div>;
+    if (!review || !review.User) return <div>No reviews yet!</div>;
+    console.log(review)
 
     return (
         <div>

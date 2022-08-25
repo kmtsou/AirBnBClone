@@ -16,9 +16,10 @@ const ReviewIndex = ({ spot, user }) => {
     }, [dispatch, spot.spot, spot.id])
     if (!reviews) return null;
     const reviewArr = Object.values(reviews);
-    const filteredArr = reviewArr.filter(review => review.spotId === (spot.spot || spot.id))
-
-    if (filteredArr.length === 0) return (<>
+    // console.log('the review arr', reviewArr)
+    // const filteredArr = reviewArr.filter(review => review.spotId === (spot.spot || spot.id))
+    // console.log('the filtered arr', filteredArr)
+    if (reviewArr.length === 0) return (<>
         <div>No reviews yet!</div>
         {user && user.id !== spot.ownerId && (
             <div>
@@ -27,8 +28,8 @@ const ReviewIndex = ({ spot, user }) => {
     </>)
 
     let madeAReview = false;
-    for (let i = 0; i < filteredArr.length; i++) {
-        if (user && user.id === filteredArr[i].userId) {
+    for (let i = 0; i < reviewArr.length; i++) {
+        if (user && user.id === reviewArr[i].userId) {
             madeAReview = true;
         }
     }
@@ -36,7 +37,7 @@ const ReviewIndex = ({ spot, user }) => {
     return (
         <div>
             <div>
-                {filteredArr.map(review => (
+                {reviewArr.map(review => (
                     <ReviewIndexItem review={review} key={`review ${review.id}`} />
                 ))}
             </div>
