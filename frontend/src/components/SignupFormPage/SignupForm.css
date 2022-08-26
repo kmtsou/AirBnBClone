@@ -1,0 +1,28 @@
+.signup-form-page {
+    display: flex;
+    justify-content: center;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.signup-input-line {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signup-input-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    width: 90%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}

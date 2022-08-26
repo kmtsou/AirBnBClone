@@ -23,12 +23,18 @@ const SpotShow = () => {
     }
   }
   if (!spot) return null;
+  let n = 3.0
+  let rating = n.toFixed(1);
+    if (spot.avgRating) {
+        rating = (spot.avgRating).toFixed(1)
+    }
+
   return (
     <>
       <section>
         <h1>{spot.name}</h1>
         <div className='spot-info'>
-          <div>{spot.avgRating}</div>
+          <div>{rating}</div>
           {/* <div>{spot.numReviews}</div> */}
           <h3>
             {spot.address}, {spot.city}, {spot.state}

@@ -1,0 +1,19 @@
+.nav-ul {
+    display: flex;
+    justify-content: space-between;
+    height: 30%;
+    padding: 0% 5%;
+    border-bottom: 2px solid lightgray;
+    /* list-style-type: none; */
+}
+
+.nav-li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.home-link {
+    text-decoration: none;
+}

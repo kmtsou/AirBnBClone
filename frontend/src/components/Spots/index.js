@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { thunkGetSpots } from '../../store/spotReducer';
 import SpotIndexItem from './SpotIndexItem';
-import './Spots.css';
+import './index.css';
 
 const SpotIndex = () => {
     const spots = useSelector(state => state.spots)

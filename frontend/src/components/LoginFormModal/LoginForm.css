@@ -1,0 +1,27 @@
+.login-form-page {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-line-input {
+    margin: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-button-input {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    width: 90%;
+}

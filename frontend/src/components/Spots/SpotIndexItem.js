@@ -10,6 +10,11 @@ const SpotIndexItem = ({ spot }) => {
     //     e.preventDefault();
     //     dispatch(thunkCreateSpot());
     // }
+    let n = 3
+    let rating = n.toFixed(1);
+    if (spot.avgRating) {
+        rating = (spot.avgRating).toFixed(1)
+    }
 
     return (
         <>
@@ -18,7 +23,7 @@ const SpotIndexItem = ({ spot }) => {
                     <div className='spot-img'></div>
                     <div className='spot-header'>
                         <h3>{spot.city}, {spot.state}</h3>
-                        <div>{spot.avgRating}</div>
+                        <div>{rating}</div>
                     </div>
                     <p>${spot.price} night</p>
                 </li>

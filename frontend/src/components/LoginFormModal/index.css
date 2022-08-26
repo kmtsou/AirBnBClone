@@ -1,0 +1,8 @@
+.or-container {
+    display: flex;
+    justify-content: center;
+}
+
+.or-line-breaker {
+    margin: 5px 0px;
+}
