@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkCreateSpot, thunkAddSpotImage } from '../../store/spotReducer';
+import './CreateSpotForm.css'
 
 const CreateSpotForm = () => {
     const dispatch = useDispatch();
@@ -75,8 +76,8 @@ const CreateSpotForm = () => {
     };
 
     return (
-        <section>
-            <form onSubmit={handleSubmit} >
+        <section className='create-spot-form-container'>
+            <form onSubmit={handleSubmit} className='create-spot-form'>
                 {hasSubmitted && validationErrors.length > 0 && (
                     <div>
                         The following errors were found:
@@ -87,8 +88,10 @@ const CreateSpotForm = () => {
                         </ul>
                     </div>
                 )}
-                <label>
-                    Spot name:
+                <div className='create-form-line'>
+                    <label>
+                        Spot name:
+                    </label>
                     <input
                         type="text"
                         value={name}
@@ -96,71 +99,87 @@ const CreateSpotForm = () => {
                         required
                         maxLength={50}
                     />
-                </label>
-                <label>
-                    Address:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Address:
+                    </label>
                     <input
                         type="text"
                         value={address}
                         onChange={e => setAddress(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    City:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        City:
+                    </label>
                     <input
                         type="text"
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    State:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        State:
+                    </label>
                     <input
                         type="text"
                         value={state}
                         onChange={e => setState(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Country:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Country:
+                    </label>
                     <input
                         type="text"
                         value={country}
                         onChange={e => setCountry(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Description:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Description:
+                    </label>
                     <textarea
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Lat:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Lat:
+                    </label>
                     <input
                         type="text"
                         value={lat}
                         onChange={e => setLat(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Lng:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Lng:
+                    </label>
                     <input
                         type="text"
                         value={lng}
                         onChange={e => setLng(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Price per night:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Price per night:
+                    </label>
                     <input
                         type="number"
                         value={price}
@@ -168,17 +187,21 @@ const CreateSpotForm = () => {
                         onChange={e => setPrice(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Preview Image url:
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Preview Image url:
+                    </label>
                     <input
                         type="text"
                         value={url}
                         onChange={e => setUrl(e.target.value)}
                         required
                     />
-                </label>
-                <button type="submit">Create new Spot</button>
+                </div>
+                <div className='create-spot-form-button-container'>
+                    <button type="submit" className='create-spot-form-button'>Create new Spot</button>
+                </div>
             </form>
         </section>
     );
