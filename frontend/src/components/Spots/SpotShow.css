@@ -73,3 +73,7 @@
     border-radius: 20px;
     cursor: pointer;
 }
+
+.spot-owner-update-link {
+    margin-top: 5px;
+}

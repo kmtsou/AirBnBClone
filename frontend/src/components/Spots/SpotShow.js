@@ -1,6 +1,6 @@
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { thunkDeleteSpot, thunkGetSpots } from '../../store/spotReducer';
+import { thunkDeleteSpot, thunkGetOneSpot } from '../../store/spotReducer';
 import { useState, useEffect } from 'react';
 import ReviewIndex from '../Reviews';
 import './SpotShow.css';
@@ -15,7 +15,7 @@ const SpotShow = () => {
   const reviews = useSelector(state => state.reviews);
 
   useEffect(() => {
-    dispatch(thunkGetSpots())
+    dispatch(thunkGetOneSpot(spotId))
   }, [dispatch])
 
   const deleteSpot = async (e) => {
@@ -50,8 +50,8 @@ const SpotShow = () => {
               <i className='fa fa-star'></i>{rating}
             </div>
             <div className='spot-info-separator'>.</div>
-            {/* <div>{numReviews} reviews</div>
-            <div className='spot-info-separator'>.</div> */}
+            <div>{spot.numReviews} reviews</div>
+            <div className='spot-info-separator'>.</div>
             <h4>
               {spot.address}, {spot.city}, {spot.state}
             </h4>
@@ -59,9 +59,10 @@ const SpotShow = () => {
         </div>
         {/* Spot ID: {spot.spot || spot.id} */}
         <div className='spot-show-image-container'>
-          <img src={spot.previewImage || spot.url} alt='preview' className='spot-show-photo'></img>
+          <img src={spot.previewImage || spot.url || spot.Images[0].url} alt='preview' className='spot-show-photo'></img>
         </div>
         <div className='spot-bottom-description'>
+          {spot.Owner && (<h4>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h4>)}
           <p className='price-line'>price per night: <div className='spot-bold-price-tag'>${spot.price}</div></p>
           <p>{spot.description}</p>
         </div>
@@ -77,7 +78,7 @@ const SpotShow = () => {
       {user && user.id === spot.ownerId && (
         <div className='spot-owner-buttons'>
           <button onClick={deleteSpot} className="spot-owner-delete-button">Delete Spot</button>
-          <Link to={`/spots/${spotId}/update`}>
+          <Link to={`/spots/${spotId}/update`} className='spot-owner-update-link'>
             <button className='spot-owner-update-button'>Update Spot</button>
           </Link>
         </div>

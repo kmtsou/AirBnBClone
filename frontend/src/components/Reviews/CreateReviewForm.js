@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateReview, thunkGetSpotReviews } from "../../store/reviewReducer";
-import { thunkGetSpots } from "../../store/spotReducer";
+import { thunkGetOneSpot } from "../../store/spotReducer";
 import './CreateReviewForm.css';
 
 const CreateReviewForm = ({ spot }) => {
@@ -24,7 +24,7 @@ const CreateReviewForm = ({ spot }) => {
         });
         if (createdReview) {
             dispatch(thunkGetSpotReviews(spot.spot || spot.id))
-            dispatch(thunkGetSpots()) // to update avgRating
+            dispatch(thunkGetOneSpot(spot.spot || spot.id)) // to update avgRating
         }
         setReview('');
         setStars(0);
