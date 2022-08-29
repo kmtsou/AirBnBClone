@@ -14,3 +14,8 @@ Express
 Sequelize
 React
 Redux
+
+Splash page image:
+![splash-page-image](./wiki-image.png)
+
+In order to run locally, clone the repo and run npm install in both the frontend and backend folders. Then create a .env file in the backend folder that has a PORT, DB_FILE, JWT_SECRET, JWT_EXPIRES_IN variables. Then add a proxy to your frontend package json.

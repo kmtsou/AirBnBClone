@@ -63,7 +63,7 @@ const SpotShow = () => {
         </div>
         <div className='spot-bottom-description'>
           {spot.Owner && (<h4>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h4>)}
-          <p className='price-line'>price per night: <div className='spot-bold-price-tag'>${spot.price}</div></p>
+          <div className='price-line'>price per night: <div className='spot-bold-price-tag'>${spot.price}</div></div>
           <p>{spot.description}</p>
         </div>
         {/* <Link to="/">Back to Spot Index</Link> */}
