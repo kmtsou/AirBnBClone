@@ -7,13 +7,47 @@
     /* list-style-type: none; */
 }
 
-.nav-li {
+.nav-right {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
+    width: 10%;
+    align-items: center;
+}
 
+.nav-left {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 13%;
+}
+
+.logo-div {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
 }
 
 .home-link {
-    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+
+.signup-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+.session-login-signup {
+    display: flex;
+    height: 40%;
 }

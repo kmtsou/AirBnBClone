@@ -18,15 +18,17 @@ const SpotIndex = () => {
     const spotsArr = Object.values(spots);
 
     return (
-        <div>
+        <div className='splash-page'>
             <ul className='card-container'>
                 {spotsArr.map(spot => (
                     <SpotIndexItem spot={spot} key={`spot ${spot.spot || spot.id}`} />
                 ))}
             </ul>
-            {user && (<Link to={`/spots/new`}>
-                <button className='create-spot-button'>Create a Spot</button>
-            </Link>)}
+            {user && (<div className='create-spot-container'>
+                <Link to={`/spots/new`} className='create-spot-link'>
+                    <button className='create-spot-button'>Host a Spot!</button>
+                </Link>
+            </div>)}
         </div>
     )
 };

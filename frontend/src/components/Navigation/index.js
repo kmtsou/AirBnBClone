@@ -15,21 +15,21 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <>
+      <div className='session-login-signup'>
         <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
+        <NavLink to="/signup"><button className='signup-button'>Sign Up</button></NavLink>
+      </div>
     );
   }
 
   return (
     <div className='nav-ul'>
-      <div>
-        <NavLink exact to="/" className='home-link'>Home
-          {/* <div><img src='https://download.logo.wine/logo/Airbnb/Airbnb-Logo.wine.png' alt='home-image'></img></div> */}
+      <div className='nav-left'>
+        <NavLink exact to="/" className='home-link'>
+          <div className='logo-div'><img src='https://download.logo.wine/logo/Airbnb/Airbnb-Logo.wine.png' alt='home-image' className='logo-img'></img></div>
         </NavLink>
       </div>
-      <div className='nav-li'>
+      <div className='nav-right'>
         {isLoaded && sessionLinks}
       </div>
     </div>

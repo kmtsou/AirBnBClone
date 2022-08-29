@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkUpdateSpot } from '../../store/spotReducer';
 import './UpdateSpotForm.css'
@@ -153,6 +153,11 @@ const UpdateSpotForm = () => {
                     <button type="submit" className='update-spot-form-button'>Update Spot</button>
                 </div>
             </form>
+            <div className='return-div'>
+                <Link to={`/spots/${spotId}`} className='return-button-link'>
+                    <button className='return-button'>Cancel</button>
+                </Link>
+            </div>
         </section>
     );
 }

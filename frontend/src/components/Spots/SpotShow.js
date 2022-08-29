@@ -75,12 +75,12 @@ const SpotShow = () => {
       </section>
 
       {user && user.id === spot.ownerId && (
-        <>
-          <button onClick={deleteSpot}>Delete Spot</button>
+        <div className='spot-owner-buttons'>
+          <button onClick={deleteSpot} className="spot-owner-delete-button">Delete Spot</button>
           <Link to={`/spots/${spotId}/update`}>
-            <button>Update Spot</button>
+            <button className='spot-owner-update-button'>Update Spot</button>
           </Link>
-        </>
+        </div>
       )}
     </>
   );

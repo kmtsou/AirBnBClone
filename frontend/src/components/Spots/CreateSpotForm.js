@@ -29,11 +29,11 @@ const CreateSpotForm = () => {
         if (isNaN(lng)) {
             errors.push('Please provide a numerical longitude')
         }
-        if (!url.includes('.com') || !url.includes('.jpg') || !url.includes('.png')) {
+        if (!url.includes('.com') && !url.includes('.jpg') && !url.includes('.png')) {
             errors.push('Please provide a valid image url')
         }
         setValidationErrors(errors);
-    }, [lat, lng])
+    }, [lat, lng, url])
 
 
     const handleSubmit = async (e) => {

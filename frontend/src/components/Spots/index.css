@@ -4,3 +4,25 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.splash-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-spot-container {
+    display: flex;
+    justify-content: center;
+}
+
+.create-spot-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.create-spot-link {
+    width: 15%;
+}

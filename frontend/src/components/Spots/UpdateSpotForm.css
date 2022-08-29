@@ -1,7 +1,8 @@
 .update-spot-form-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
     margin-top: 20px;
+    flex-direction: column;
 }
 
 .update-spot-form {
@@ -28,4 +29,23 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+}
+
+.return-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.return-div {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.return-button-link {
+    width: 90%;
 }

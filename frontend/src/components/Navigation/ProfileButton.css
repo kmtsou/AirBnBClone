@@ -4,6 +4,9 @@
     display: flex;
     height: 42px;
     width: 76px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
 }
 
 .profile-dropdown-button:hover {
@@ -27,4 +30,16 @@
 
 .fa-bars {
     padding-right: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.fa-user-circle {
+    height: 100%;
+    width: 100%;
+}
+
+.profile-details {
+    position: absolute;
+    top: 55px;
 }
