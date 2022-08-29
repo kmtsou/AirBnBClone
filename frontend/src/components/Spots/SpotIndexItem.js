@@ -13,7 +13,7 @@ const SpotIndexItem = ({ spot }) => {
     let n = 3
     let rating = n.toFixed(1);
     if (spot.avgRating) {
-        rating = (spot.avgRating).toFixed(1)
+        rating = (spot.avgRating).toString()
     }
 
     return (
