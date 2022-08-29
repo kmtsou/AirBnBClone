@@ -1,21 +1,37 @@
+.spot-card-div {
+    margin: 10px 20px;
+}
+
+.link-spot {
+    text-decoration: none;
+}
+
 .spot-base {
     display: flex;
     flex-direction: column;
     height: 400px;
     width: 320px;
     margin: 25px;
-};
+}
 
-.spot-img {
-    height: 320px;
-    width: 300px;
+.display-bucket {
+    height: 72%;
+    width: 100%;
+}
+
+.img-thumbnail {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
 }
 
 .spot-header {
     display: flex;
     justify-content: space-between;
-};
+    align-items: center;
+    color: black;
+}
 
-.link-spot {
-    margin: 20px;
-};
+.spot-price-tag {
+    color: black;
+}

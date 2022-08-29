@@ -1,0 +1,16 @@
+.or-container {
+    display: flex;
+    justify-content: center;
+}
+
+.or-line-breaker {
+    margin: 5px 0px;
+}
+
+.login-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+}

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateReview, thunkGetSpotReviews } from "../../store/reviewReducer";
-import { thunkGetSpots } from "../../store/spotReducer";
+import { thunkGetOneSpot } from "../../store/spotReducer";
+import './CreateReviewForm.css';
 
 const CreateReviewForm = ({ spot }) => {
     const dispatch = useDispatch();
@@ -23,35 +24,44 @@ const CreateReviewForm = ({ spot }) => {
         });
         if (createdReview) {
             dispatch(thunkGetSpotReviews(spot.spot || spot.id))
-            dispatch(thunkGetSpots()) // to update avgRating
+            dispatch(thunkGetOneSpot(spot.spot || spot.id)) // to update avgRating
         }
         setReview('');
         setStars(0);
     }
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Leave a review:
+        <section className="create-review-section">
+            <form onSubmit={handleSubmit} className="review-form">
+                <div className="review-line-item">
+                    <label className="review-label">
+                        Leave a review:
+                    </label>
                     <textarea
                         value={review}
                         onChange={e => setReview(e.target.value)}
                         required
                     />
-                </label>
-                <label>
-                    Star rating:
-                    <input
-                        type="number"
-                        min='0'
-                        max='5'
-                        value={stars}
-                        onChange={e => setStars(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit">Submit review</button>
+                </div>
+                <div className="stars-and-submit">
+                    <div className="review-submit-container">
+                        <button type="submit" className="review-submit-button">Submit review</button>
+                    </div>
+                    <div className="review-stars">
+                        <label>
+                            {/* Star rating: */}
+                            <i className="fa fa-star"></i>
+                        </label>
+                        <input
+                            type="number"
+                            min='0'
+                            max='5'
+                            value={stars}
+                            onChange={e => setStars(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
             </form>
         </section>
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 // import { thunkCreateSpot } from '../../store/spotReducer';
 import './SpotIndexItem.css';
@@ -10,20 +10,27 @@ const SpotIndexItem = ({ spot }) => {
     //     e.preventDefault();
     //     dispatch(thunkCreateSpot());
     // }
+    let n = 3
+    let rating = n.toFixed(1);
+    if (spot.avgRating) {
+        rating = (spot.avgRating).toFixed(1)
+    }
 
     return (
-        <>
-            <Link to={`/spots/${spot.spot}`} className='link-spot'>
+        <div className='spot-card-div'>
+            <NavLink to={`/spots/${spot.spot}`} className='link-spot'>
                 <li className='spot-base'>
-                    <div className='spot-img'></div>
+                    <div className='display-bucket'>
+                        <img src={spot.previewImage} className='img-thumbnail' alt='thumbnail'></img>
+                    </div>
                     <div className='spot-header'>
                         <h3>{spot.city}, {spot.state}</h3>
-                        <div>{spot.avgRating}</div>
+                        <div><i className='fa fa-star'></i>{rating}</div>
                     </div>
-                    <p>${spot.price} night</p>
+                    <p className='spot-price-tag'>${spot.price} night</p>
                 </li>
-            </Link>
-        </>
+            </NavLink>
+        </div>
     );
 };
 

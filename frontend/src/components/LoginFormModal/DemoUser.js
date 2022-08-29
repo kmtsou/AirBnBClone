@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../store/session";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import './DemoUser.css'
 
 const DemoUser = () => {
     const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const DemoUser = () => {
     };
 
     return (
-        <button onClick={loginDemoUser}>Login as demo user</button>
+        <div className="button-container">
+            <button onClick={loginDemoUser} className="demo-user-button">Login as demo user</button>
+        </div>
     )
 };
 

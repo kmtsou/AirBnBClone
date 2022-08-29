@@ -1,0 +1,79 @@
+.spot-details-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spot-details-header {
+    width: 70%;
+}
+
+.spot-info {
+    display: flex;
+    align-items: center;
+}
+
+.spot-info-rating {
+    font-weight: 700;
+}
+
+.spot-info-separator {
+    margin: 0 8px;
+}
+
+.spot-show-image-container {
+    width: 70%;
+    height: 500px;
+}
+
+.spot-show-photo {
+    width: 100%;
+    height: 100%;
+}
+
+.spot-bottom-description {
+    width: 70%;
+}
+
+.price-line {
+    display: flex;
+}
+
+.spot-bold-price-tag {
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.review-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-container {
+    width: 70%;
+}
+
+.spot-owner-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spot-owner-delete-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.spot-owner-update-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.spot-owner-update-link {
+    margin-top: 5px;
+}

@@ -1,0 +1,33 @@
+.create-review-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    border-top: 1px solid lightgrey;
+}
+
+.review-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-submit-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.stars-and-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-line-item {
+    display: flex;
+    align-items: center;
+}
+
+.review-label {
+    margin-right: 5px;
+}

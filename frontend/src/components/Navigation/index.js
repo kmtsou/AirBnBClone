@@ -15,20 +15,24 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <>
+      <div className='session-login-signup'>
         <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
+        <NavLink to="/signup"><button className='signup-button'>Sign Up</button></NavLink>
+      </div>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
+    <div className='nav-ul'>
+      <div className='nav-left'>
+        <NavLink exact to="/" className='home-link'>
+          <div className='logo-div'><img src='https://download.logo.wine/logo/Airbnb/Airbnb-Logo.wine.png' alt='home-image' className='logo-img'></img></div>
+        </NavLink>
+      </div>
+      <div className='nav-right'>
         {isLoaded && sessionLinks}
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 

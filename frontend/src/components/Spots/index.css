@@ -1,27 +1,28 @@
-.login-form-page {
+.card-container {
+    list-style-type: none;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
-.login-form {
+.splash-page {
     display: flex;
     flex-direction: column;
 }
 
-.login-line-input {
-    margin: 10px 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.button-container {
+.create-spot-container {
     display: flex;
     justify-content: center;
 }
 
-.login-button-input {
+.create-spot-button {
     background-color: #ff6961;
     color: white;
     border-radius: 20px;
-    width: 90%;
+    cursor: pointer;
+    width: 100%;
+}
+
+.create-spot-link {
+    width: 15%;
 }

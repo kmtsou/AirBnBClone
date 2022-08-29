@@ -1,21 +1,22 @@
-.signup-form-page {
+.create-spot-form-container {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 }
 
-.signup-form {
+.create-spot-form {
     display: flex;
     flex-direction: column;
     width: 30%;
 }
 
-.signup-input-line {
+.create-form-line {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
 }
 
-.signup-input-button {
+.create-spot-form-button {
     background-color: #ff6961;
     color: white;
     border-radius: 20px;
@@ -23,7 +24,8 @@
     cursor: pointer;
 }
 
-.button-container {
+.create-spot-form-button-container {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 }
