@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import spotReducer from "../../store/spotReducer";
 // import { useParams } from "react-router-dom";
+import './ReviewIndexItem.css'
 
 import DeleteReviewButton from "./DeleteReviewButton";
 
@@ -11,10 +12,10 @@ const ReviewIndexItem = ({ review }) => {
     if (!review || !review.User) return <div>No reviews yet!</div>;
 
     return (
-        <div>
+        <div className="single-review-container">
             <div>
                 <p>{review.User.firstName} {review.User.lastName}</p>
-                <div>stars: {review.stars}</div>
+                <div><i className="fa fa-star"></i> {review.stars}</div>
             </div>
             <div>
                 <p>{review.review}</p>

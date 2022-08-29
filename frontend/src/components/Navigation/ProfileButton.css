@@ -1,7 +1,9 @@
 .profile-dropdown-button {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
+    height: 42px;
+    width: 76px;
 }
 
 .profile-dropdown-button:hover {

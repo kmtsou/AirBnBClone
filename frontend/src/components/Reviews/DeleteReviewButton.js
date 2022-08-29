@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { thunkDeleteReview } from "../../store/reviewReducer";
 import { thunkGetSpots } from "../../store/spotReducer";
+import './DeleteReviewButton.css'
 
 const DeleteReviewButton = ({ review }) => {
     const dispatch = useDispatch();
@@ -15,7 +16,9 @@ const DeleteReviewButton = ({ review }) => {
         dispatch(thunkGetSpots()); // to update avgRating
     }
     return (
-        <button onClick={deleteReview}>Delete review</button>
+        <div className="delete-review-button-container">
+            <button onClick={deleteReview} className='delete-review-button'>Delete your review</button>
+        </div>
     )
 }
 

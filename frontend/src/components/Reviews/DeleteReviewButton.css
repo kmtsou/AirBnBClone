@@ -1,0 +1,13 @@
+.delete-review-button {
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+    width: 15%;
+    cursor: pointer;
+}
+
+.delete-review-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}

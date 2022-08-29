@@ -25,7 +25,9 @@ function Navigation({ isLoaded }) {
   return (
     <div className='nav-ul'>
       <div>
-        <NavLink exact to="/" className='home-link'>Home</NavLink>
+        <NavLink exact to="/" className='home-link'>Home
+          {/* <div><img src='https://download.logo.wine/logo/Airbnb/Airbnb-Logo.wine.png' alt='home-image'></img></div> */}
+        </NavLink>
       </div>
       <div className='nav-li'>
         {isLoaded && sessionLinks}
