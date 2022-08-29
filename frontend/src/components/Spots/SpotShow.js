@@ -32,7 +32,7 @@ const SpotShow = () => {
   let n = 3.0
   let rating = n.toFixed(1);
   if (spot.avgRating) {
-    rating = (spot.avgRating).toFixed(1)
+    rating = Number(spot.avgRating).toFixed(1)
   }
 
   // let numReviews = 0;
