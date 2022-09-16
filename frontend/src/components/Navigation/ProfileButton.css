@@ -42,4 +42,9 @@
 .profile-details {
     position: absolute;
     top: 55px;
+    list-style: none;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 5px 5px;
 }
