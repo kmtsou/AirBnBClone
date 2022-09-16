@@ -83,7 +83,7 @@ const CreateSpotForm = () => {
                         The following errors were found:
                         <ul>
                             {validationErrors.map((error) => (
-                                <li key={error}>{error}</li>
+                                <li key={error} className='val-errors'>{error}</li>
                             ))}
                         </ul>
                     </div>
@@ -98,6 +98,7 @@ const CreateSpotForm = () => {
                         onChange={e => setName(e.target.value)}
                         required
                         maxLength={50}
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -109,6 +110,7 @@ const CreateSpotForm = () => {
                         value={address}
                         onChange={e => setAddress(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -120,6 +122,7 @@ const CreateSpotForm = () => {
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -131,6 +134,7 @@ const CreateSpotForm = () => {
                         value={state}
                         onChange={e => setState(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -142,6 +146,7 @@ const CreateSpotForm = () => {
                         value={country}
                         onChange={e => setCountry(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -152,6 +157,7 @@ const CreateSpotForm = () => {
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -163,6 +169,7 @@ const CreateSpotForm = () => {
                         value={lat}
                         onChange={e => setLat(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -174,6 +181,7 @@ const CreateSpotForm = () => {
                         value={lng}
                         onChange={e => setLng(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -186,6 +194,7 @@ const CreateSpotForm = () => {
                         min="0"
                         onChange={e => setPrice(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-form-line'>
@@ -197,6 +206,7 @@ const CreateSpotForm = () => {
                         value={url}
                         onChange={e => setUrl(e.target.value)}
                         required
+                        className='create-spot-form-input'
                     />
                 </div>
                 <div className='create-spot-form-button-container'>
