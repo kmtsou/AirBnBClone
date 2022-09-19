@@ -59,6 +59,7 @@ const UpdateSpotForm = () => {
                         onChange={e => setName(e.target.value)}
                         required
                         maxLength={50}
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -70,6 +71,7 @@ const UpdateSpotForm = () => {
                         value={address}
                         onChange={e => setAddress(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -81,6 +83,7 @@ const UpdateSpotForm = () => {
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -92,6 +95,7 @@ const UpdateSpotForm = () => {
                         value={state}
                         onChange={e => setState(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -103,6 +107,7 @@ const UpdateSpotForm = () => {
                         value={country}
                         onChange={e => setCountry(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -113,6 +118,7 @@ const UpdateSpotForm = () => {
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -124,6 +130,7 @@ const UpdateSpotForm = () => {
                         value={lat}
                         onChange={e => setLat(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -135,6 +142,7 @@ const UpdateSpotForm = () => {
                         value={lng}
                         onChange={e => setLng(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -147,6 +155,7 @@ const UpdateSpotForm = () => {
                         min="0"
                         onChange={e => setPrice(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-button-container'>

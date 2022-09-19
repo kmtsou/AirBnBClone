@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
@@ -14,6 +14,13 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [valErrors, setValErrors] = useState([]);
+
+  // useEffect(() => {
+  //   let formErrors = []
+  //   if (!email.includes('@')) formErrors.push('Please provide a valid email')
+  //   setValErrors(formErrors);
+  // }, [email])
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -34,7 +41,7 @@ function SignupFormPage() {
     <div className="signup-form-page">
       <form onSubmit={handleSubmit} className="signup-form">
         <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          {errors.map((error, idx) => <li key={idx} className='signup-error-line'>{error}</li>)}
         </ul>
         <div className="signup-input-line">
           <label>
@@ -45,6 +52,7 @@ function SignupFormPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="signup-input-box"
           />
         </div>
         <div className="signup-input-line">
@@ -56,6 +64,7 @@ function SignupFormPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className="signup-input-box"
           />
         </div>
         <div className="signup-input-line">
@@ -67,6 +76,7 @@ function SignupFormPage() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            className="signup-input-box"
           />
         </div>
         <div className="signup-input-line">
@@ -78,6 +88,7 @@ function SignupFormPage() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            className="signup-input-box"
           />
         </div>
         <div className="signup-input-line">
@@ -89,6 +100,7 @@ function SignupFormPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="signup-input-box"
           />
         </div>
         <div className="signup-input-line">
@@ -100,6 +112,7 @@ function SignupFormPage() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            className="signup-input-box"
           />
         </div>
         <div className="button-container">

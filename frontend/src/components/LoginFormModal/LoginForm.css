@@ -25,3 +25,11 @@
     border-radius: 20px;
     width: 90%;
 }
+
+.login-error-line {
+    color: red;
+}
+
+.login-input-box {
+    border-radius: 10px;
+}

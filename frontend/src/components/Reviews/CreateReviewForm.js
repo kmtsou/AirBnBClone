@@ -41,6 +41,7 @@ const CreateReviewForm = ({ spot }) => {
                         value={review}
                         onChange={e => setReview(e.target.value)}
                         required
+                        className="review-textarea"
                     />
                 </div>
                 <div className="stars-and-submit">
@@ -59,6 +60,7 @@ const CreateReviewForm = ({ spot }) => {
                             value={stars}
                             onChange={e => setStars(e.target.value)}
                             required
+                            className="review-star-input"
                         />
                     </div>
                 </div>
