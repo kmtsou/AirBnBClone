@@ -9,14 +9,16 @@ const DeleteReviewButton = ({ review }) => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const [errors, setErrors] = useState([]);
-    const deleteReview = (e) => {
+    const deleteReview = async (e) => {
         e.preventDefault();
-        dispatch(thunkDeleteReview(review.id)).catch(async (res) => {
+        let deletedReview = await dispatch(thunkDeleteReview(review.id)).catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
         });
-        dispatch(thunkGetSpotReviews(spotId))
-        dispatch(thunkGetOneSpot(spotId)); // to update avgRating
+        if (deletedReview) {
+            dispatch(thunkGetSpotReviews(spotId))
+            dispatch(thunkGetOneSpot(spotId)); // to update avgRating
+        }
     }
     return (
         <div className="delete-review-button-container">
