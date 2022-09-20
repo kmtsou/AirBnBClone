@@ -1,0 +1,25 @@
+.or-container {
+    display: flex;
+    justify-content: center;
+}
+
+.or-line-breaker {
+    margin: 5px 0px;
+}
+
+.host-login-button {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.host-login-button:hover {
+    background-color: #F5F5F5;
+}
+
+.login-reminder {
+    display: flex;
+    justify-content: center;
+}
