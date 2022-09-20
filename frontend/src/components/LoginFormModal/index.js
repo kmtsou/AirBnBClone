@@ -4,7 +4,7 @@ import DemoUser from './DemoUser';
 import LoginForm from './LoginForm';
 import './index.css'
 
-function LoginFormModal({showModal, setShowModal}) {
+function LoginFormModal({ showModal, setShowModal }) {
   // const [showModal, setShowModal] = useState(false);
 
   return (
@@ -12,11 +12,11 @@ function LoginFormModal({showModal, setShowModal}) {
       {/* <button onClick={() => setShowModal(true)} className="login-button">Log In</button> */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <LoginForm />
+          <LoginForm setShowModal={setShowModal}/>
           <div className='or-container'>
             <p className='or-line-breaker'>Or</p>
           </div>
-          <DemoUser />
+          <DemoUser setShowModal={setShowModal}/>
         </Modal>
       )}
     </>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import './DemoUser.css'
 
-const DemoUser = () => {
+const DemoUser = ({setShowModal}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [errors, setErrors] = useState([]);
@@ -21,6 +21,7 @@ const DemoUser = () => {
                 if (data && data.errors) setErrors(data.errors);
             })
         if (loggedInDemo) {
+            setShowModal(false);
             history.push('/');
         }
     };

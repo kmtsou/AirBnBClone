@@ -10,6 +10,9 @@ import LoginFromHostButton from './BecomeAHost';
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   const [showModal, setShowModal] = useState(false);
+  console.log('rendering nav')
+  console.log(showModal)
+  console.log(sessionUser)
 
   let sessionLinks;
   // if (sessionUser) {

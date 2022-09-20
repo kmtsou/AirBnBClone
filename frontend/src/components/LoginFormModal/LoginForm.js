@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import './LoginForm.css'
 
-function LoginForm() {
+function LoginForm({setShowModal}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [credential, setCredential] = useState("");
@@ -21,6 +21,7 @@ function LoginForm() {
             }
         );
         if (loggedInUser) {
+            setShowModal(false);
             history.push('/')
         }
     };
