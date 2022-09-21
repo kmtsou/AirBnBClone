@@ -24,11 +24,11 @@ const SpotIndex = () => {
                     <SpotIndexItem spot={spot} key={`spot ${spot.spot || spot.id}`} />
                 ))}
             </ul>
-            {user && (<div className='create-spot-container'>
+            {/* {user && (<div className='create-spot-container'>
                 <Link to={`/spots/new`} className='create-spot-link'>
                     <button className='create-spot-button'>Host a Spot!</button>
                 </Link>
-            </div>)}
+            </div>)} */}
         </div>
     )
 };

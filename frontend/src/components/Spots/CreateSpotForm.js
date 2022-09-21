@@ -151,17 +151,6 @@ const CreateSpotForm = () => {
                 </div>
                 <div className='create-form-line'>
                     <label>
-                        Description:
-                    </label>
-                    <textarea
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                        required
-                        className='create-spot-form-input'
-                    />
-                </div>
-                <div className='create-form-line'>
-                    <label>
                         Lat:
                     </label>
                     <input
@@ -207,6 +196,17 @@ const CreateSpotForm = () => {
                         onChange={e => setUrl(e.target.value)}
                         required
                         className='create-spot-form-input'
+                    />
+                </div>
+                <div className='create-form-line'>
+                    <label>
+                        Description:
+                    </label>
+                    <textarea
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        required
+                        className='create-spot-form-textarea'
                     />
                 </div>
                 <div className='create-spot-form-button-container'>

@@ -7,13 +7,16 @@
 .create-spot-form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 45%;
+    height: 75vh;
+    justify-content: space-around;
 }
 
 .create-form-line {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .create-spot-form-button {
@@ -28,4 +31,18 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+}
+
+.create-spot-form-textarea {
+    resize: none;
+    border-radius: 0.5em;
+    width: 40%;
+    padding: 10px;
+}
+
+.create-spot-form-input {
+    width: 40%;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 10px;
 }

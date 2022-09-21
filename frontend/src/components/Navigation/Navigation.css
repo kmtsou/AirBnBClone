@@ -54,7 +54,7 @@
 
 .host-spot-button {
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
     border-radius: 15px;
     text-decoration: none;
     color: black;
@@ -66,5 +66,6 @@
 
 .host-spot-link {
     text-decoration: none;
+    font-weight: bold;
     color: black;
 }

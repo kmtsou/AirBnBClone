@@ -8,13 +8,16 @@
 .update-spot-form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 45%;
+    height: 75vh;
+    justify-content: space-around;
 }
 
 .update-spot-form-line {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .update-spot-form-button {

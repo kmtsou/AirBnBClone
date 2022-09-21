@@ -46,12 +46,13 @@
     list-style: none;
     background-color: white;
     border: 1px solid grey;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 5px 5px;
 }
 
 .session-buttons {
     position: absolute;
+    width: 45%;
     left: 8em;
     top: 66px;
     background-color: white;
@@ -60,4 +61,35 @@
     padding: 5px 5px;
     display: flex;
     flex-direction: column;
+}
+
+.login-div {
+    height: 5vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.login-div:hover {
+    background-color: #F5F5F5;
+}
+
+.signup-div {
+    height: 5vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.signup-div:hover {
+    background-color: #F5F5F5;
+}
+
+.signup-navlink {
+    text-decoration: none;
+    color: black;
 }

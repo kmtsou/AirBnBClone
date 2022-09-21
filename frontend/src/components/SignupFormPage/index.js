@@ -14,7 +14,7 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  const [valErrors, setValErrors] = useState([]);
+  // const [valErrors, setValErrors] = useState([]);
 
   // useEffect(() => {
   //   let formErrors = []
@@ -53,6 +53,7 @@ function SignupFormPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
             className="signup-input-box"
+            placeholder="Email"
           />
         </div>
         <div className="signup-input-line">
@@ -65,6 +66,7 @@ function SignupFormPage() {
             onChange={(e) => setUsername(e.target.value)}
             required
             className="signup-input-box"
+            placeholder="Username"
           />
         </div>
         <div className="signup-input-line">
@@ -77,6 +79,7 @@ function SignupFormPage() {
             onChange={(e) => setFirstName(e.target.value)}
             required
             className="signup-input-box"
+            placeholder="First Name"
           />
         </div>
         <div className="signup-input-line">
@@ -89,6 +92,7 @@ function SignupFormPage() {
             onChange={(e) => setLastName(e.target.value)}
             required
             className="signup-input-box"
+            placeholder="Last Name"
           />
         </div>
         <div className="signup-input-line">
@@ -101,6 +105,7 @@ function SignupFormPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             className="signup-input-box"
+            placeholder="Password"
           />
         </div>
         <div className="signup-input-line">
@@ -113,6 +118,7 @@ function SignupFormPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             className="signup-input-box"
+            placeholder="Confirm Password"
           />
         </div>
         <div className="button-container">

@@ -31,3 +31,8 @@
 .signup-error-line {
     color: red;
 }
+
+.signup-input-box {
+    padding: 10px;
+    border-radius: 8px;
+}

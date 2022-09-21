@@ -112,17 +112,6 @@ const UpdateSpotForm = () => {
                 </div>
                 <div className='update-spot-form-line'>
                     <label>
-                        Description:
-                    </label>
-                    <textarea
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                        required
-                        className='update-spot-form-input'
-                    />
-                </div>
-                <div className='update-spot-form-line'>
-                    <label>
                         Lat:
                     </label>
                     <input
@@ -156,6 +145,17 @@ const UpdateSpotForm = () => {
                         onChange={e => setPrice(e.target.value)}
                         required
                         className='update-spot-form-input'
+                    />
+                </div>
+                <div className='update-spot-form-line'>
+                    <label>
+                        Description:
+                    </label>
+                    <textarea
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        required
+                        className='update-spot-form-textarea'
                     />
                 </div>
                 <div className='update-spot-button-container'>
