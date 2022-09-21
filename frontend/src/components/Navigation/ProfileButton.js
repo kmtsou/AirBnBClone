@@ -5,7 +5,7 @@ import { useHistory, NavLink } from 'react-router-dom';
 import LoginFormModal from "../LoginFormModal";
 import './ProfileButton.css'
 
-function ProfileButton({ user, setShowModal }) {
+function ProfileButton({ user, setShowModal, setShowSignupModal }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const history = useHistory();
@@ -50,6 +50,7 @@ function ProfileButton({ user, setShowModal }) {
         <div className="session-buttons">
           {/* <LoginFormModal /> */}
           <div onClick={() => setShowModal(true)} className='login-div'><p className="login-text">Log In</p></div>
+          <div onClick={() => setShowSignupModal(true)} className='login-div'><p className="login-text">Sign up</p></div>
           <NavLink to="/signup" className={'signup-navlink'}><div className='signup-div'><p className="signup-div-text">Sign Up</p></div></NavLink>
           {/* <NavLink to="/signup"><button className='signup-button'>Sign Up</button></NavLink> */}
         </div>

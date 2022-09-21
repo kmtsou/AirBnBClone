@@ -6,13 +6,15 @@ import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import myLogo from './myLogo.png';
 import LoginFromHostButton from './BecomeAHost';
+import SignupFormModal from '../SignupFormPage/SignupFormModal';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   const [showModal, setShowModal] = useState(false);
-  console.log('rendering nav')
-  console.log(showModal)
-  console.log(sessionUser)
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  // console.log('rendering nav')
+  // console.log(showModal)
+  // console.log(sessionUser)
 
   let sessionLinks;
   // if (sessionUser) {
@@ -27,7 +29,7 @@ function Navigation({ isLoaded }) {
   //     </div>
   //   );
   // }
-  sessionLinks = (<ProfileButton user={sessionUser} setShowModal={setShowModal} />)
+  sessionLinks = (<ProfileButton user={sessionUser} setShowModal={setShowModal} setShowSignupModal={setShowSignupModal} />)
 
   return (
     <div className='nav-ul'>
@@ -48,6 +50,7 @@ function Navigation({ isLoaded }) {
         {isLoaded && sessionLinks}
       </div>
       <LoginFormModal showModal={showModal} setShowModal={setShowModal} />
+      <SignupFormModal showSignupModal={showSignupModal} setShowSignupModal={setShowSignupModal} />
     </div>
   );
 }
