@@ -12,14 +12,14 @@
 .signup-input-line {
     margin: 5px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .signup-input-button {
     background-color: #ff6961;
     color: white;
     border-radius: 20px;
-    width: 90%;
+    width: 72%;
     cursor: pointer;
 }
 
@@ -35,4 +35,9 @@
 .signup-input-box {
     padding: 10px;
     border-radius: 8px;
+    width: 65%;
+}
+
+.signup-error-ul {
+    padding: 0 0 0 18%;
 }

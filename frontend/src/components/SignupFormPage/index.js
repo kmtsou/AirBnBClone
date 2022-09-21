@@ -40,13 +40,13 @@ function SignupFormPage() {
   return (
     <div className="signup-form-page">
       <form onSubmit={handleSubmit} className="signup-form">
-        <ul>
+        <ul className="signup-error-ul">
           {errors.map((error, idx) => <li key={idx} className='signup-error-line'>{error}</li>)}
         </ul>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Email:
-          </label>
+          </label> */}
           <input
             type="text"
             value={email}
@@ -57,9 +57,9 @@ function SignupFormPage() {
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Username:
-          </label>
+          </label> */}
           <input
             type="text"
             value={username}
@@ -70,9 +70,9 @@ function SignupFormPage() {
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             First name:
-          </label>
+          </label> */}
           <input
             type="text"
             value={firstName}
@@ -83,9 +83,9 @@ function SignupFormPage() {
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Last name:
-          </label>
+          </label> */}
           <input
             type="text"
             value={lastName}
@@ -96,9 +96,9 @@ function SignupFormPage() {
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Password:
-          </label>
+          </label> */}
           <input
             type="password"
             value={password}
@@ -109,9 +109,9 @@ function SignupFormPage() {
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Confirm Password:
-          </label>
+          </label> */}
           <input
             type="password"
             value={confirmPassword}
