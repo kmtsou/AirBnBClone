@@ -68,4 +68,7 @@
     text-decoration: none;
     font-weight: bold;
     color: black;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
 }

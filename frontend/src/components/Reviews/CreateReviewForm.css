@@ -19,6 +19,10 @@
     justify-content: center;
 }
 
+.error-header-text {
+    margin-left: 13px;
+}
+
 .review-submit-button {
     background-color: #ff6961;
     color: white;
