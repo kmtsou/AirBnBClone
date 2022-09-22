@@ -1,20 +1,49 @@
 .update-spot-form-container {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    flex-direction: column;
 }
 
 .update-spot-form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 45%;
+    /* height: 75vh; */
 }
 
 .update-spot-form-line {
     margin: 5px 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+.update-spot-form-input {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+}
+
+.update-spot-form-textarea {
+    resize: none;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+}
+
+.update-spot-form-input-number {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+}
+
+.update-spot-form-input-number::-webkit-inner-spin-button,
+.update-spot-form-input-number::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0%;
 }
 
 .update-spot-form-button {
@@ -40,7 +69,7 @@
 }
 
 .return-div {
-    width: 30%;
+    width: 45%;
     display: flex;
     justify-content: center;
     margin-top: 5px;
@@ -48,4 +77,12 @@
 
 .return-button-link {
     width: 90%;
+}
+
+.val-errors {
+    color: red;
+}
+
+.spot-val-error-line {
+    color: red;
 }

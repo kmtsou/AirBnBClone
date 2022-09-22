@@ -1,14 +1,14 @@
-.button-container {
+.modal-button-container {
     display: flex;
     justify-content: center;
-    margin: 10px 0px;
+    margin-top: 10px;
 }
 
-.demo-user-button {
+.modal-button {
     background-color: #ff6961;
     color: white;
     border-radius: 20px;
-    width: 90%;
-    height: 2em;
+    width: 20%;
     cursor: pointer;
+    padding: 5px 0px;
 }

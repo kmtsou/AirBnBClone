@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
+import LoginFormModal from "../LoginFormModal";
 import './ProfileButton.css'
 
-function ProfileButton({ user }) {
+function ProfileButton({ user, setShowModal, setShowSignupModal }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const history = useHistory();
@@ -45,7 +46,16 @@ function ProfileButton({ user }) {
         </div>
 
       </button>
-      {showMenu && (
+      {showMenu && !user && (
+        <div className="session-buttons">
+          {/* <LoginFormModal /> */}
+          <div onClick={() => setShowModal(true)} className='login-div'><p className="login-text">Log In</p></div>
+          <div onClick={() => setShowSignupModal(true)} className='login-div'><p className="login-text">Sign up</p></div>
+          {/* <NavLink to="/signup" className={'signup-navlink'}><div className='signup-div'><p className="signup-div-text">Sign Up</p></div></NavLink> */}
+          {/* <NavLink to="/signup"><button className='signup-button'>Sign Up</button></NavLink> */}
+        </div>
+      )}
+      {showMenu && user && (
         <ul className="profile-details">
           <li className="dropdown-item">{user.username}</li>
           <li className="dropdown-item">{user.email}</li>

@@ -8,6 +8,7 @@ import SpotIndex from "./components/Spots";
 import SpotShow from "./components/Spots/SpotShow";
 import CreateSpotForm from "./components/Spots/CreateSpotForm";
 import UpdateSpotForm from "./components/Spots/UpdateSpotForm";
+import Footer from "./components/Footer";
 import "./App.css"
 
 function App() {
@@ -21,23 +22,29 @@ function App() {
     <div className="app-container">
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/" exact>
-            <SpotIndex />
-          </Route>
-          <Route path="/spots/new" exact>
-            <CreateSpotForm />
-          </Route>
-          <Route path="/spots/:spotId" exact>
-            <SpotShow />
-          </Route>
-          <Route path="/spots/:spotId/update" exact={true}>
-            <UpdateSpotForm />
-          </Route>
-        </Switch>
+        <>
+          <Switch>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route path="/" exact>
+              <SpotIndex />
+            </Route>
+            <Route path="/spots/new" exact>
+              <CreateSpotForm />
+            </Route>
+            <Route path="/spots/:spotId" exact>
+              <SpotShow />
+            </Route>
+            <Route path="/spots/:spotId/update" exact={true}>
+              <UpdateSpotForm />
+            </Route>
+            <Route>
+              Page Not Found
+            </Route>
+          </Switch>
+          <Footer />
+        </>
       )}
     </div>
   );

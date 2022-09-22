@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { thunkGetSpotReviews } from "../../store/reviewReducer";
 import CreateReviewForm from "./CreateReviewForm";
 import ReviewIndexItem from "./ReviewIndexItem";
+import CreateReviewModal from "./CreateReviewModal";
 // import { clearReviews } from "../../store/reviewReducer";
+import './index.css'
 
 const ReviewIndex = ({ spot, user }) => {
     const dispatch = useDispatch();
     const reviews = useSelector(state => state.reviews)
-    const [showForm, setShowForm] = useState(false);
+    const [showReviewModal, setShowReviewModal] = useState(false);
+    console.log(spot)
 
     useEffect(() => {
         dispatch(thunkGetSpotReviews(spot.spot || spot.id))
@@ -22,9 +25,14 @@ const ReviewIndex = ({ spot, user }) => {
     if (reviewArr.length === 0) return (<>
         <div>No reviews yet!</div>
         {user && user.id !== spot.ownerId && (
-            <div>
-                <CreateReviewForm spot={spot} />
-            </div>)}
+            // <div>
+            //     <CreateReviewForm spot={spot} />
+            // </div>
+            <div className="modal-button-container">
+                <button onClick={() => setShowReviewModal(true)} className="modal-button">Leave a review</button>
+            </div>
+        )}
+        <CreateReviewModal showReviewModal={showReviewModal} setShowReviewModal={setShowReviewModal} />
     </>)
 
     let madeAReview = false;
@@ -42,9 +50,14 @@ const ReviewIndex = ({ spot, user }) => {
                 ))}
             </div>
             {user && user.id !== spot.ownerId && !madeAReview && (
-                <div>
-                    <CreateReviewForm spot={spot} />
-                </div>)}
+                // <div>
+                //     <CreateReviewForm spot={spot} />
+                // </div>
+                <div className="modal-button-container">
+                    <button onClick={() => setShowReviewModal(true)} className="modal-button">Leave a review</button>
+                </div>
+            )}
+            <CreateReviewModal showReviewModal={showReviewModal} setShowReviewModal={setShowReviewModal} />
         </div>
     )
 };

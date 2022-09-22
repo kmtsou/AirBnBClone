@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css'
 
-function SignupFormPage() {
+function SignupFormPage({setShowSignupModal}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -14,18 +14,29 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  // const [valErrors, setValErrors] = useState([]);
+
+  // useEffect(() => {
+  //   let formErrors = []
+  //   if (!email.includes('@')) formErrors.push('Please provide a valid email')
+  //   setValErrors(formErrors);
+  // }, [email])
 
   if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
+      let signedupUser = await dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
+      if (signedupUser) {
+        setShowSignupModal(false);
+      }
+      return;
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
@@ -33,73 +44,88 @@ function SignupFormPage() {
   return (
     <div className="signup-form-page">
       <form onSubmit={handleSubmit} className="signup-form">
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        <div className="signup-header">
+          <h3 className="signup-header-text">Create Account</h3>
+        </div>
+        <ul className="signup-error-ul">
+          {errors.map((error, idx) => <li key={idx} className='signup-error-line'>{error}</li>)}
         </ul>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Email:
-          </label>
+          </label> */}
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="signup-input-box"
+            placeholder="Email"
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Username:
-          </label>
+          </label> */}
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className="signup-input-box"
+            placeholder="Username"
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             First name:
-          </label>
+          </label> */}
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            className="signup-input-box"
+            placeholder="First Name"
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Last name:
-          </label>
+          </label> */}
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            className="signup-input-box"
+            placeholder="Last Name"
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Password:
-          </label>
+          </label> */}
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="signup-input-box"
+            placeholder="Password"
           />
         </div>
         <div className="signup-input-line">
-          <label>
+          {/* <label>
             Confirm Password:
-          </label>
+          </label> */}
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            className="signup-input-box"
+            placeholder="Confirm Password"
           />
         </div>
         <div className="button-container">

@@ -9,11 +9,11 @@
 
 .nav-right {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     height: 100%;
-    width: 10%;
+    width: 20%;
     align-items: center;
+    position: relative;
 }
 
 .nav-left {
@@ -50,4 +50,22 @@
 .session-login-signup {
     display: flex;
     height: 40%;
+}
+
+.host-spot-button {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.host-spot-button:hover {
+    background-color: #F5F5F5;
+}
+
+.host-spot-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
 }

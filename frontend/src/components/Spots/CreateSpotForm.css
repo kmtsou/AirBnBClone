@@ -7,13 +7,14 @@
 .create-spot-form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 45%;
+    /* height: 75vh; */
 }
 
 .create-form-line {
     margin: 5px 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .create-spot-form-button {
@@ -28,4 +29,40 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+}
+
+.create-spot-form-textarea {
+    resize: none;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+    height: 15vh;
+}
+
+.create-spot-form-input {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+}
+
+.create-spot-form-input-number {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+}
+
+.create-spot-form-input-number::-webkit-inner-spin-button,
+.create-spot-form-input-number::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0%;
+}
+
+.val-errors {
+    color: red;
+}
+
+.spot-val-error-line {
+    color: red;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkUpdateSpot } from '../../store/spotReducer';
@@ -20,10 +20,36 @@ const UpdateSpotForm = () => {
     const [lat, setLat] = useState(spot.lat || 0.0);
     const [lng, setLng] = useState(spot.lng || 0.0);
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [validationErrors, setValidationErrors] = useState([]);
+
+    useEffect(() => {
+        let errors = [];
+        if (name.length < 4) {
+            errors.push('Please provide a name with more than 3 characters')
+        }
+        if (name.length > 40) {
+            errors.push('Please provide a name with 40 characters or less')
+        }
+        if (description.length < 5) {
+            errors.push('Please provide a description with more than 4 characters')
+        }
+        if (isNaN(lat)) {
+            errors.push('Please provide a numerical latitude')
+        }
+        if (isNaN(lng)) {
+            errors.push('Please provide a numerical longitude')
+        }
+        setValidationErrors(errors);
+    }, [lat, lng, name, description])
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
+        if (validationErrors.length > 0) {
+            return;
+        }
         setErrors([]);
         const payload = {
             name,
@@ -49,6 +75,17 @@ const UpdateSpotForm = () => {
     return (
         <section className='update-spot-form-container'>
             <form onSubmit={handleSubmit} className='update-spot-form'>
+                {hasSubmitted && validationErrors.length > 0 && (
+                    <div>
+                        The following errors were found:
+                        <ul>
+                            {validationErrors.map((error) => (
+                                <li key={error} className='val-errors'>{error}</li>
+                            ))}
+                            {errors.map((error, idx) => <li key={idx} className='spot-val-error-line'>{error}</li>)}
+                        </ul>
+                    </div>
+                )}
                 <div className='update-spot-form-line'>
                     <label>
                         Spot name:
@@ -59,6 +96,7 @@ const UpdateSpotForm = () => {
                         onChange={e => setName(e.target.value)}
                         required
                         maxLength={50}
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -70,6 +108,7 @@ const UpdateSpotForm = () => {
                         value={address}
                         onChange={e => setAddress(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -81,6 +120,7 @@ const UpdateSpotForm = () => {
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -92,6 +132,7 @@ const UpdateSpotForm = () => {
                         value={state}
                         onChange={e => setState(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -103,16 +144,7 @@ const UpdateSpotForm = () => {
                         value={country}
                         onChange={e => setCountry(e.target.value)}
                         required
-                    />
-                </div>
-                <div className='update-spot-form-line'>
-                    <label>
-                        Description:
-                    </label>
-                    <textarea
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                        required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -124,6 +156,7 @@ const UpdateSpotForm = () => {
                         value={lat}
                         onChange={e => setLat(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -135,6 +168,7 @@ const UpdateSpotForm = () => {
                         value={lng}
                         onChange={e => setLng(e.target.value)}
                         required
+                        className='update-spot-form-input'
                     />
                 </div>
                 <div className='update-spot-form-line'>
@@ -147,6 +181,18 @@ const UpdateSpotForm = () => {
                         min="0"
                         onChange={e => setPrice(e.target.value)}
                         required
+                        className='update-spot-form-input-number'
+                    />
+                </div>
+                <div className='update-spot-form-line'>
+                    <label>
+                        Description:
+                    </label>
+                    <textarea
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        required
+                        className='update-spot-form-textarea'
                     />
                 </div>
                 <div className='update-spot-button-container'>

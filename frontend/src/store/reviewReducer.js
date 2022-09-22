@@ -75,9 +75,9 @@ const reviewReducer = (state = {}, action) => {
             });
             return reviews;
         case CREATE_REVIEW:
-            return {...state, [action.payload.id]: { ...action.payload } };
+            return { ...state, [action.payload.id]: { ...action.payload } };
         case DELETE_REVIEW:
-            let newState = {...state}
+            let newState = { ...state }
             delete newState[action.id]
             return newState;
         // case CLEAR_REVIEWS:

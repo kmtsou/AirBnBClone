@@ -1,10 +1,20 @@
 /* TODO Add site wide styles */
+html {
+    /* min-height: 100% !important; */
+    height: 100%;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
+    min-height: 100%;
 }
 
 /* .root {
     display: flex;
     height: 100vw;
     width: 100vw;
+} */
+
+/* html, body, #root, .App {
+    min-height: 100%;
 } */

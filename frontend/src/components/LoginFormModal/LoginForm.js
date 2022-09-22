@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import './LoginForm.css'
 
-function LoginForm() {
+function LoginForm({setShowModal}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [credential, setCredential] = useState("");
@@ -21,6 +21,7 @@ function LoginForm() {
             }
         );
         if (loggedInUser) {
+            setShowModal(false);
             history.push('/')
         }
     };
@@ -30,7 +31,7 @@ function LoginForm() {
             <form onSubmit={handleSubmit} className="login-form">
                 <ul>
                     {errors.map((error, idx) => (
-                        <li key={idx}>{error}</li>
+                        <li key={idx} className='login-error-line'>{error}</li>
                     ))}
                 </ul>
                 <div className="login-line-input">
@@ -42,6 +43,7 @@ function LoginForm() {
                         value={credential}
                         onChange={(e) => setCredential(e.target.value)}
                         required
+                        className="login-input-box"
                     />
                 </div>
                 <div className="login-line-input">
@@ -53,6 +55,7 @@ function LoginForm() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="login-input-box"
                     />
                 </div>
                 <div className="button-container">
