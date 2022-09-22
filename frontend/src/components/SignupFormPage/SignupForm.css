@@ -1,12 +1,13 @@
 .signup-form-page {
     display: flex;
     justify-content: center;
+    width: 25vw;
 }
 
 .signup-form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 100%;
 }
 
 .signup-input-line {
@@ -20,6 +21,7 @@
     color: white;
     border-radius: 20px;
     width: 72%;
+    height: 2em;
     cursor: pointer;
 }
 
