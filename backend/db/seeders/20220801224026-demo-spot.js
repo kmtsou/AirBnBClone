@@ -47,6 +47,30 @@ module.exports = {
         name: 'Example',
         description: 'A mansion',
         price: 300
+      },
+      {
+        ownerId: 2,
+        address: '432 Baker st',
+        city: 'Nashville',
+        state: 'TN',
+        country: 'USA',
+        lat: 24,
+        lng: 76,
+        name: 'A comfy house',
+        description: 'A comfy house that anyone would want to live in.',
+        price: 340
+      },
+      {
+        ownerId: 1,
+        address: '765 Second st',
+        city: 'San Francisco',
+        state: 'CA',
+        country: 'USA',
+        lat: 98,
+        lng: 78,
+        name: 'An Expensive house',
+        description: 'An expensive house for all of your luxury needs.',
+        price: 1000
       }
      ], {});
   },
@@ -60,7 +84,7 @@ module.exports = {
      */
      const Op = Sequelize.Op;
      return await queryInterface.bulkDelete('Spots', {
-       name: {[Op.in]: ['A small house', 'A large house', 'Example']}
+       name: {[Op.in]: ['A small house', 'A large house', 'Example', 'A comfy house', 'An Expensive house']}
      }, {});
   }
 };

@@ -19,16 +19,28 @@ module.exports = {
         spotId: 1
       },
       {
+        review: 'It was great would recommend.',
+        stars: 4,
+        userId: 2,
+        spotId: 1
+      },
+      {
         review: 'It is a crappy place',
         stars: 3,
         userId: 2,
         spotId: 3
       },
       {
-        review: 'It is a great place',
+        review: 'The water pressure in the shower was terrible',
         stars: 1,
         userId: 1,
         spotId: 2
+      },
+      {
+        review: 'Not worth the price',
+        stars: 4,
+        userId: 2,
+        spotId: 5
       }
     ], {});
   },

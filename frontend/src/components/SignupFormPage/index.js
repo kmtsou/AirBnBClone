@@ -44,6 +44,9 @@ function SignupFormPage({setShowSignupModal}) {
   return (
     <div className="signup-form-page">
       <form onSubmit={handleSubmit} className="signup-form">
+        <div className="signup-header">
+          <h3 className="signup-header-text">Create Account</h3>
+        </div>
         <ul className="signup-error-ul">
           {errors.map((error, idx) => <li key={idx} className='signup-error-line'>{error}</li>)}
         </ul>

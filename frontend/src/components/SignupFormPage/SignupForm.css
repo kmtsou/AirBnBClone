@@ -10,6 +10,12 @@
     width: 100%;
 }
 
+.signup-header {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 .signup-input-line {
     margin: 5px 0;
     display: flex;
