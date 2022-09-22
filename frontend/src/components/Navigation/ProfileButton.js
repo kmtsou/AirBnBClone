@@ -59,6 +59,7 @@ function ProfileButton({ user, setShowModal, setShowSignupModal }) {
         <ul className="profile-details">
           <li className="dropdown-item">{user.username}</li>
           <li className="dropdown-item">{user.email}</li>
+          <li className="myspots-dropdown"><NavLink to='/spots/current' className={'myspots-navlink'}>My Spots</NavLink></li>
           <li className="logout-button-container">
             <button onClick={logout} className="logout-button">Log Out</button>
           </li>

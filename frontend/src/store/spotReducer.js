@@ -5,6 +5,7 @@ const CREATE_SPOT = 'spots/createSpot';
 const UPDATE_SPOT = 'spots/updateSpot';
 const DELETE_SPOT = 'spots/deleteSpot';
 const LOAD_ONE_SPOT = 'spots/loadOneSpot';
+const LOAD_CURRENT_USER_SPOTS = 'spots/loadCurrentUserSpots'
 const ADD_IMAGE_TO_SPOT = 'spots/images/addSpotImage'
 
 export const loadSpots = (data) => {
@@ -18,6 +19,13 @@ export const loadOneSpot = (data) => {
     return {
         type: LOAD_ONE_SPOT,
         data
+    }
+}
+
+export const loadCurrentUserSpots = (data) => {
+    return {
+        type: LOAD_CURRENT_USER_SPOTS,
+        payload: data
     }
 }
 
@@ -66,6 +74,15 @@ export const thunkGetOneSpot = (id) => async dispatch => {
     if (responce.ok) {
         const spot = await responce.json();
         dispatch(loadOneSpot(spot));
+    }
+};
+
+export const thunkGetCurrentUserSpots = () => async dispatch => {
+    const responce = await csrfFetch('/api/spots/current');
+
+    if (responce.ok) {
+        const list = await responce.json();
+        dispatch(loadCurrentUserSpots(list));
     }
 };
 
@@ -144,6 +161,12 @@ const spotReducer = (state = {}, action) => {
             let spotState = {...state}
             spotState[action.data.spot] = action.data
             return spotState;
+        case LOAD_CURRENT_USER_SPOTS:
+            const userSpots = {};
+            action.payload.forEach(spot => {
+                userSpots[spot.spot] = spot
+            });
+            return { ...userSpots };
         default:
             return state;
     }

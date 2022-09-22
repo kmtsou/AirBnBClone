@@ -8,6 +8,7 @@ import SpotIndex from "./components/Spots";
 import SpotShow from "./components/Spots/SpotShow";
 import CreateSpotForm from "./components/Spots/CreateSpotForm";
 import UpdateSpotForm from "./components/Spots/UpdateSpotForm";
+import UserSpots from "./components/Spots/CurrentSpots";
 import Footer from "./components/Footer";
 import "./App.css"
 
@@ -29,6 +30,9 @@ function App() {
             </Route>
             <Route path="/" exact>
               <SpotIndex />
+            </Route>
+            <Route path='/spots/current' exact>
+              <UserSpots />
             </Route>
             <Route path="/spots/new" exact>
               <CreateSpotForm />
