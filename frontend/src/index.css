@@ -1,6 +1,7 @@
 /* TODO Add site wide styles */
 body {
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
 }
 
 /* .root {
@@ -8,3 +9,12 @@ body {
     height: 100vw;
     width: 100vw;
 } */
+
+html, body, #root, .App {
+    height: 100%;
+  }
+
+html {
+    min-height: 100% !important;
+    height: 100%;
+}

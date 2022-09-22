@@ -9,14 +9,12 @@
     flex-direction: column;
     width: 45%;
     height: 75vh;
-    justify-content: space-around;
 }
 
 .create-form-line {
     margin: 5px 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 }
 
 .create-spot-form-button {
@@ -36,13 +34,35 @@
 .create-spot-form-textarea {
     resize: none;
     border-radius: 0.5em;
-    width: 40%;
     padding: 10px;
+    margin-top: 2px;
+    height: 15vh;
 }
 
 .create-spot-form-input {
-    width: 40%;
     border: 1px solid #ccc;
     border-radius: 0.5em;
     padding: 10px;
+    margin-top: 2px;
+}
+
+.create-spot-form-input-number {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 10px;
+    margin-top: 2px;
+}
+
+.create-spot-form-input-number::-webkit-inner-spin-button,
+.create-spot-form-input-number::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0%;
+}
+
+.val-errors {
+    color: red;
+}
+
+.spot-val-error-line {
+    color: red;
 }
