@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import spotReducer from "../../store/spotReducer";
+// import spotReducer from "../../store/spotReducer";
 // import { useParams } from "react-router-dom";
 import './ReviewIndexItem.css'
 
