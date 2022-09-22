@@ -56,7 +56,9 @@ const CreateReviewForm = ({ setShowReviewModal }) => {
                 </div>
                 {hasSubmitted && valErrors.length > 0 && (
                     <div>
-                        The following errors were found:
+                        <div className="error-header-text">
+                            The following errors were found:
+                        </div>
                         <ul>
                             {valErrors.map((error) => (
                                 <li key={error} className='val-errors'>{error}</li>
