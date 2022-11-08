@@ -1,0 +1,11 @@
+.current-spots-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.spot-card-container {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
