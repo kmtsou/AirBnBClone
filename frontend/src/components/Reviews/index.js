@@ -11,7 +11,7 @@ const ReviewIndex = ({ spot, user }) => {
     const dispatch = useDispatch();
     const reviews = useSelector(state => state.reviews)
     const [showReviewModal, setShowReviewModal] = useState(false);
-    console.log(spot)
+    // console.log(spot)
 
     useEffect(() => {
         dispatch(thunkGetSpotReviews(spot.spot || spot.id))

@@ -1,7 +1,12 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,7 +16,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     return await queryInterface.bulkInsert('Spots', [
+    options.tableName = 'Spots';
+    return await queryInterface.bulkInsert(options, [
       {
         ownerId: 1,
         address: '123 Fake st',
@@ -72,19 +78,18 @@ module.exports = {
         description: 'An expensive house for all of your luxury needs.',
         price: 1000
       }
-     ], {});
+    ], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     const Op = Sequelize.Op;
-     return await queryInterface.bulkDelete('Spots', {
-       name: {[Op.in]: ['A small house', 'A large house', 'Example', 'A comfy house', 'An Expensive house']}
-     }, {});
+    //  const Op = Sequelize.Op;
+    options.tableName = 'Spots';
+    return await queryInterface.bulkDelete(options);
   }
 };

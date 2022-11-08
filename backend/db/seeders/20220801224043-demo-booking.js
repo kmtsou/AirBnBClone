@@ -1,7 +1,13 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
+
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,7 +17,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     return await queryInterface.bulkInsert('Bookings', [
+    options.tableName = 'Bookings';
+    return await queryInterface.bulkInsert(options, [
       {
         spotId: 2,
         userId: 1,
@@ -30,16 +37,17 @@ module.exports = {
         startDate: new Date('2022-10-17'),
         endDate: new Date('2022-12-18')
       }
-     ], {});
+    ], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     return await queryInterface.bulkDelete('Bookings', null, {});
+    options.tableName = 'Bookings';
+    return await queryInterface.bulkDelete(options);
   }
 };

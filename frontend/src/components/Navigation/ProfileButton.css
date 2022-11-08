@@ -98,3 +98,7 @@
     text-decoration: none;
     color: black;
 }
+
+.myspots-navlink-text:hover {
+    background-color: #F5F5F5;
+}
