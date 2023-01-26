@@ -23,6 +23,7 @@
     height: 100%;
     width: 100%;
     border-radius: 20px;
+    object-fit: cover;
 }
 
 .spot-header {
