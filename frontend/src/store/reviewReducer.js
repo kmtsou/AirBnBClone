@@ -41,19 +41,19 @@ export const deleteReview = (id) => {
 };
 
 export const thunkGetSpotReviews = (id) => async dispatch => {
-    const responce = await csrfFetch(`/api/spots/${id}/reviews`);
+    const response = await csrfFetch(`/api/spots/${id}/reviews`);
 
-    if (responce.ok) {
-        const list = await responce.json();
+    if (response.ok) {
+        const list = await response.json();
         dispatch(loadSpotReviews(list));
     }
 };
 
 export const thunkGetUserReviews = () => async dispatch => {
-    const responce = await csrfFetch('/api/reviews/current');
+    const response = await csrfFetch('/api/reviews/current');
 
-    if (responce.ok) {
-        const list = await responce.json();
+    if (response.ok) {
+        const list = await response.json();
         let { Reviews } = list
         dispatch(loadCurrentUserReviews(Reviews))
     }
@@ -73,12 +73,12 @@ export const thunkCreateReview = (data, id) => async dispatch => {
 };
 
 export const thunkDeleteReview = (id) => async dispatch => {
-    const responce = await csrfFetch(`/api/reviews/${id}`, {
+    const response = await csrfFetch(`/api/reviews/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' }
     })
-    if (responce.ok) {
-        const review = await responce.json();
+    if (response.ok) {
+        const review = await response.json();
         dispatch(deleteReview(id))
         return review;
     }

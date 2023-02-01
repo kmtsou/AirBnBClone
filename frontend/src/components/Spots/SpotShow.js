@@ -68,12 +68,14 @@ const SpotShow = () => {
         </div>
         {/* <Link to="/">Back to Spot Index</Link> */}
       </section>
-      <section className='review-section'>
-        <div className='review-container'>
-          <h4>Reviews:</h4>
-          <ReviewIndex spot={spot} user={user} />
-        </div>
-      </section>
+      <div className='bottom-section-container'>
+        <section className='review-section'>
+          <div className='review-container'>
+            <h4>Reviews:</h4>
+            <ReviewIndex spot={spot} user={user} />
+          </div>
+        </section>
+      </div>
 
       {user && user.id === spot.ownerId && (
         <div className='spot-owner-buttons'>
