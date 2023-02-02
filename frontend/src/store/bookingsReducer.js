@@ -6,35 +6,35 @@ const CREATE_BOOKING = 'bookings/createBooking';
 const DELETE_BOOKING = 'bookings/deleteBooking';
 const UPDATE_BOOKING = 'bookings/updateBooking';
 
-export const loadSpotBookings = (data) => {
+const loadSpotBookings = (data) => {
     return {
         type: LOAD_SPOT_BOOKINGS,
         payload: data
     }
 };
 
-export const loadCurrentUserBookings = (data) => {
+const loadCurrentUserBookings = (data) => {
     return {
         type: LOAD_CURRENT_USER_BOOKINGS,
         payload: data
     }
 };
 
-export const createBooking = (data) => {
+const createBooking = (data) => {
     return {
         type: CREATE_BOOKING,
         payload: data
     }
 };
 
-export const deleteBooking = (id) => {
+const deleteBooking = (id) => {
     return {
         type: DELETE_BOOKING,
         id: id
     }
 };
 
-export const updateBooking = (data, id) => {
+const updateBooking = (data, id) => {
     return {
         type: UPDATE_BOOKING,
         id: id,

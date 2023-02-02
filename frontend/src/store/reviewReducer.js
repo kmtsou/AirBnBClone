@@ -4,6 +4,7 @@ const LOAD_REVIEWS = 'reviews/loadReviews';
 const LOAD_CURRENT_USER_REVIEWS = 'reviews/loadCurrentUserReviews'
 const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_REVIEW = 'reviews/deleteReview';
+const EDIT_REVIEW = 'reviews/editReview';
 // const CLEAR_REVIEWS = 'reviews/clearReviews';
 
 // export const clearReviews = () => {
@@ -39,6 +40,13 @@ export const deleteReview = (id) => {
         id: id
     }
 };
+
+const editReview = (data) => {
+    return {
+        type: EDIT_REVIEW,
+        payload: data
+    }
+}
 
 export const thunkGetSpotReviews = (id) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${id}/reviews`);
@@ -84,6 +92,19 @@ export const thunkDeleteReview = (id) => async dispatch => {
     }
 };
 
+export const thunkEditReview = (id, payload) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editReview(data));
+        return data;
+    }
+};
+
 const reviewReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_REVIEWS:
@@ -104,6 +125,10 @@ const reviewReducer = (state = {}, action) => {
             let newState = { ...state }
             delete newState[action.id]
             return newState;
+        case EDIT_REVIEW:
+            let editState = { ...state }
+            editState[action.payload.id] = action.payload
+            return editState;
         // case CLEAR_REVIEWS:
         //     return {}
         default:
