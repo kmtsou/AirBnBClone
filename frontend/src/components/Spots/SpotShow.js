@@ -76,7 +76,7 @@ const SpotShow = () => {
             <ReviewIndex spot={spot} user={user} />
           </div>
         </section>
-        <BookingsPanel spot={spot} />
+        <BookingsPanel spot={spot} rating={rating}/>
       </div>
 
       {user && user.id === spot.ownerId && (
