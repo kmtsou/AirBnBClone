@@ -9,6 +9,7 @@ import SpotShow from "./components/Spots/SpotShow";
 import CreateSpotForm from "./components/Spots/CreateSpotForm";
 import UpdateSpotForm from "./components/Spots/UpdateSpotForm";
 import UserSpots from "./components/Spots/CurrentSpots";
+import UserBookings from "./components/Bookings/CurrentBookings";
 import Footer from "./components/Footer";
 import "./App.css"
 
@@ -42,6 +43,9 @@ function App() {
             </Route>
             <Route path="/spots/:spotId/update" exact={true}>
               <UpdateSpotForm />
+            </Route>
+            <Route path='/bookings/current' exact>
+              <UserBookings />
             </Route>
             <Route>
               Page Not Found

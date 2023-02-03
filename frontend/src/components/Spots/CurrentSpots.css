@@ -9,3 +9,8 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.myspots-header {
+    display: flex;
+    justify-content: center;
+}

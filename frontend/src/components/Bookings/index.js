@@ -31,25 +31,28 @@ const BookingsPanel = ({ spot, rating }) => {
             endDate
         };
 
-        let newBooking = await dispatch(thunkCreateBooking(spot.id, payload)).catch(async (res) => {
+        let newBooking = await dispatch(thunkCreateBooking(spot.id || spot.spot, payload)).catch(async (res) => {
             const data = await res.json()
             let errors = []
             if (data && data.errors) {
-                errors.push(data.errors)
+                errors.push(data.message)
             }
             setValidationErrors(errors)
         })
+        if (newBooking) {
+            history.push('/bookings/current')
+        }
     };
 
     useEffect(() => {
         dispatch(thunkGetSpotBookings(spot.id || spot.spot))
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         let errors = [];
         let today = new Date()
-        let checkStart = new Date(startDate)
-        let checkEnd = new Date(endDate)
+        let checkStart = new Date(startDate + "T00:00:00")
+        let checkEnd = new Date(endDate + "T00:00:00")
         if (today > checkStart || today > checkEnd) {
             errors.push("You must book dates in the future")
         }
@@ -59,6 +62,10 @@ const BookingsPanel = ({ spot, rating }) => {
 
         setValidationErrors(errors);
     }, [startDate, endDate])
+
+    let date = new Date();
+    date.setDate(date.getDate() + 1)
+    let minDate = date.toISOString().split("T")[0]
 
 
     return (
@@ -89,6 +96,7 @@ const BookingsPanel = ({ spot, rating }) => {
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
                                 required
+                                min={minDate}
                             ></input>
                         </div>
                         <div className='booking-input-container'>
@@ -113,8 +121,8 @@ const BookingsPanel = ({ spot, rating }) => {
             <div className='bookings-panel-footer'>
                 <div className='bookings-panel-footer-details'>
                     <div className='price-details'>
-                        <div>{`$xnights`}</div>
-                        <div>{`$`}</div>
+                        <div>{`$${spot.price} x ${Number(new Date(endDate).getDate() - new Date(startDate).getDate())} nights`}</div>
+                        <div>{`$${spot.price * Number(new Date(endDate).getDate() - new Date(startDate).getDate())}`}</div>
                     </div>
                     <div className='price-details'>
                         <div>Cleaning Fee</div>
@@ -127,7 +135,7 @@ const BookingsPanel = ({ spot, rating }) => {
                 </div>
                 <div className='price-details-total'>
                     <div>Final Total</div>
-                    <div>{`$`}</div>
+                    <div>{`$${spot.price * Number(new Date(endDate).getDate() - new Date(startDate).getDate()) + 45 + 60}`}</div>
                 </div>
             </div>
 
