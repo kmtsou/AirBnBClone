@@ -3,7 +3,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 25%;
+    width: 26%;
+    border: 1px solid #dedddd;
+    border-radius: 13px;
+    padding: 24px;
+    margin-top: 18px;
 }
 
 .bookings-form {
@@ -17,14 +21,21 @@
     display: flex;
 }
 
+.booking-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .bookings-panel-footer {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .price-details {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .price-details-total {

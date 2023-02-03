@@ -55,7 +55,7 @@ const BookingsPanel = ({ spot }) => {
             </div>
             <div className='bookings-panel-footer'>
                 <div className='price-details'>
-                    <div></div>
+                    <div>{`$xnights`}</div>
                     <div></div>
                 </div>
                 <div className='price-details'>
