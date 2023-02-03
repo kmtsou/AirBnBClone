@@ -1,26 +1,64 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkGetSpotBookings } from '../../store/bookingsReducer';
+import { useHistory } from 'react-router-dom';
+import { thunkGetSpotBookings, thunkCreateBooking } from '../../store/bookingsReducer';
 import './BookingsPanel.css'
 
 
 const BookingsPanel = ({ spot, rating }) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    // const bookings = useSelector(state => state.bookings);
+    const bookings = useSelector(state => state.bookings);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
 
-    // const bookingsArray = Object.values(bookings)
+    const bookingsArray = Object.values(bookings)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!user) {
+            alert("Login to make a booking")
+            return;
+        }
+        if (user.id === spot.ownerId) {
+            alert("Owner can't book own property")
+            return;
+        }
+
+        const payload = {
+            startDate,
+            endDate
+        };
+
+        let newBooking = await dispatch(thunkCreateBooking(spot.id, payload)).catch(async (res) => {
+            const data = await res.json()
+            let errors = []
+            if (data && data.errors) {
+                errors.push(data.errors)
+            }
+            setValidationErrors(errors)
+        })
     };
 
-    // useEffect(() => {
-    //     dispatch(thunkGetSpotBookings(spot.id || spot.spot))
-    // }, [])
+    useEffect(() => {
+        dispatch(thunkGetSpotBookings(spot.id || spot.spot))
+    }, [])
+
+    useEffect(() => {
+        let errors = [];
+        let today = new Date()
+        let checkStart = new Date(startDate)
+        let checkEnd = new Date(endDate)
+        if (today > checkStart || today > checkEnd) {
+            errors.push("You must book dates in the future")
+        }
+        if (checkStart > checkEnd) {
+            errors.push("The check out date must be after the check-in date")
+        }
+
+        setValidationErrors(errors);
+    }, [startDate, endDate])
 
 
     return (
