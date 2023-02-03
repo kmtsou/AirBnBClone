@@ -1,0 +1,33 @@
+.bookings-panel-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+
+.bookings-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookings-date-inputs {
+    display: flex;
+}
+
+.bookings-panel-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-details-total {
+    display: flex;
+    justify-content: space-between;
+}

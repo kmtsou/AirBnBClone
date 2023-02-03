@@ -4,6 +4,7 @@ import { thunkDeleteSpot, thunkGetOneSpot } from '../../store/spotReducer';
 import { useState, useEffect } from 'react';
 import ReviewIndex from '../Reviews';
 import './SpotShow.css';
+import BookingsPanel from '../Bookings';
 
 const SpotShow = () => {
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ const SpotShow = () => {
             <ReviewIndex spot={spot} user={user} />
           </div>
         </section>
+        <BookingsPanel spot={spot} />
       </div>
 
       {user && user.id === spot.ownerId && (
