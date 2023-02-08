@@ -1,0 +1,128 @@
+.bookings-panel-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 21%;
+    border: 1px solid #dedddd;
+    box-shadow: 0 6px 16px rgb(0 0 0 / 18%);
+    border-radius: 13px;
+    padding: 24px;
+    margin-top: 18px;
+    /* min-height: 295px; */
+}
+
+.bookings-panel-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+.bookings-panel-header-right {
+    display: flex;
+}
+
+.bookings-panel-form-container {
+    width: 100%;
+}
+
+.bookings-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookings-date-inputs {
+    display: flex;
+    width: 100%;
+    /* justify-content: space-between; */
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 0px 10px;
+    box-sizing: border-box;
+}
+
+.booking-input-container-left {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid black;
+    width: 100%;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.booking-input-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 12px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.booking-input {
+    border: none;
+}
+
+.booking-input-label {
+    font-size: 12px;
+}
+
+.create-bookings-btn-container {
+    width: 100%;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.create-bookings-button {
+    background-color: #ff6961;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+}
+
+.bookings-panel-footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 14px;
+}
+
+.bookings-panel-footer-details {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #dedddd;
+    padding-bottom: 8px;
+    gap: 18px;
+}
+
+.price-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.price-details-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.bookings-error-line {
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.bookings-errors {
+    list-style-type: none;
+    padding: 0;
+}

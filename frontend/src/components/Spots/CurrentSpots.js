@@ -17,6 +17,9 @@ const UserSpots = () => {
     const currentSpotsArr = Object.values(spots);
     return (
         <div className='current-spots-container'>
+            <div className='myspots-header'>
+                <h1>My Spots</h1>
+            </div>
             <ul className='spot-card-container'>
                 {currentSpotsArr.map(spot => (
                     <SpotIndexItem spot={spot} key={`spot ${spot.spot || spot.id}`} />

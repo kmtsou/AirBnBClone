@@ -8,4 +8,10 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 400px;
+}
+
+.myspots-header {
+    display: flex;
+    justify-content: center;
 }

@@ -4,9 +4,11 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
+import CLogo from './android-chrome-192x192.png'
 import myLogo from './myLogo.png';
 import LoginFromHostButton from './BecomeAHost';
 import SignupFormModal from '../SignupFormPage/SignupFormModal';
+import SearchBar from './SearchBar';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -35,9 +37,14 @@ function Navigation({ isLoaded }) {
     <div className='nav-ul'>
       <div className='nav-left'>
         <NavLink exact to="/" className='home-link'>
-          {/* <div className='logo-div'><img src='https://download.logo.wine/logo/Airbnb/Airbnb-Logo.wine.png' alt='home-image' className='logo-img'></img></div> */}
-          <div className='logo-div'><img src={myLogo} alt='home-logo' className='logo-img'></img></div>
+          <div className='logo-div'>
+            <img src={CLogo} alt='home-logo' className='logo-img'></img>
+            CloneBnB
+          </div>
         </NavLink>
+      </div>
+      <div className='nav-middle'>
+        <SearchBar />
       </div>
       <div className='nav-right'>
         {sessionUser && <div className='host-spot-button'>

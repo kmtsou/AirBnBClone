@@ -4,3 +4,31 @@
     /* height: 100%;
     width: 100%; */
 }
+
+.social-links-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    padding-top: 4px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border-top: 1px solid grey;
+}
+
+.social-link {
+    text-decoration: none;
+    color: black;
+}
+
+.social-text {
+    padding-left: 38px;
+}
+
+.links-container {
+    display: flex;
+    padding-right: 38px;
+    gap: 28px;
+}
