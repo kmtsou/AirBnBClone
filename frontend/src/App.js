@@ -52,6 +52,13 @@ function App() {
             </Route>
           </Switch>
           <Footer />
+          <div className="social-links-container">
+            <div className="social-text">Airbnb clone by Kevin Tsou</div>
+            <div className="links-container">
+              <a className="social-link" href="https://github.com/kmtsou" target='_blank' rel='noopener noreferrer'>Github</a>
+              <a className="social-link" href="https://www.linkedin.com/in/kevin-tsou-07aa99111/" target='_blank' rel='noopener noreferrer'>LinkedIn</a>
+            </div>
+          </div>
         </>
       )}
     </div>

@@ -20,12 +20,13 @@
 .bookings-card-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     flex-wrap: wrap;
     list-style: none;
     margin: 0;
     padding: 0 32px;
     gap: 18px;
+    min-height: 400px;
 }
 
 .mybookings-details-container {
