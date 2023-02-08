@@ -112,3 +112,7 @@
 .myspots-logout-div:hover {
     background-color: #F5F5F5;
 }
+
+.dropdown-item {
+    padding-bottom: 2px;
+}
