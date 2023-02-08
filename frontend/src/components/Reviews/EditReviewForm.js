@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { thunkEditReview, thunkGetSpotReviews } from "../../store/reviewReducer";
 import { thunkGetOneSpot } from "../../store/spotReducer";
 import './CreateReviewForm.css';
+import './EditReviewForm.css'
 
 const EditReviewForm = ({ theReview, setShowEditReviewModal }) => {
     const dispatch = useDispatch();
@@ -93,7 +94,8 @@ const EditReviewForm = ({ theReview, setShowEditReviewModal }) => {
                         className="review-star-input"
                     />
                 </div>
-                <div className="review-submit-container">
+                <div className="edit-review-submit-container">
+                    <button className="edit-review-cancel" onClick={() => setShowEditReviewModal(false)}>Cancel</button>
                     <button type="submit" className="review-submit-button">Submit review</button>
                 </div>
             </form>
