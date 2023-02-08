@@ -1,0 +1,12 @@
+.edit-review-cancel {
+    cursor: pointer;
+    background-color: #ff6961;
+    color: white;
+    border-radius: 20px;
+}
+
+.edit-review-submit-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
