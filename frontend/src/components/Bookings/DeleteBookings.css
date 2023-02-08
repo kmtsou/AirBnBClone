@@ -1,0 +1,44 @@
+.booking-delete-modal-button {
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f55;
+}
+
+.delete-booking-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    min-height: 150px;
+}
+
+.delete-booking-modal-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.bookings-delete-btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bookings-cancel-delete {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f55;
+}
+
+.bookings-delete-button {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f55;
+}

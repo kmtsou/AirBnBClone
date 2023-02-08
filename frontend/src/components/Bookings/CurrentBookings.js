@@ -4,6 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetUserBookings } from "../../store/bookingsReducer";
 import { thunkGetSpots } from "../../store/spotReducer";
 import './CurrentBookings.css'
+import DeleteBookingModal from "./DeleteBookingModal";
 
 const UserBookings = () => {
     const dispatch = useDispatch();
@@ -31,6 +32,11 @@ const UserBookings = () => {
         )
     }
 
+    const formatDate = (date) => {
+        let formatDate = new Date(date).toUTCString().split(' ')
+        return formatDate[0] + ' ' + formatDate[1] + ' ' + formatDate[2] + ', ' + formatDate[3]
+    }
+
     return (
         <div className="current-bookings-container">
             <div className="mybookings-header">
@@ -40,23 +46,23 @@ const UserBookings = () => {
                 {bookingsArray.map((booking, i) => (
                     <div className="booking-card" key={i}>
                         <div className="mybookings-image-container">
-                            {/* <NavLink className='mybookings-navlink' to={`/spots/${booking.spotId}`}>
+                            <NavLink className='mybookings-navlink' to={`/spots/${booking.spotId}`}>
                                 <img className="mybookings-spot-image" src={booking.Spot.previewImage} alt={booking.Spot.name}
                                 onError={(e) => e.target.src="https://i.imgur.com/udFhU6r.png"}
                                 ></img>
-                            </NavLink> */}
+                            </NavLink>
                         </div>
                         <div className="mybookings-details-container">
-                            <div className="mybookings-property">{`${booking.Spot.city}`}, {`${booking.Spot.county}`}</div>
+                            <div className="mybookings-property">{`${booking.Spot.city}`}, {`${booking.Spot.country}`}</div>
                             <div className="mybookings-date-details">
-                                <div className="mybookings-date-start"></div>
+                                <div className="mybookings-date-start">{formatDate(booking.startDate)}</div>
                                 <div className="date-separator">-</div>
-                                <div className="mybookings-date-end"></div>
+                                <div className="mybookings-date-end">{formatDate(booking.endDate)}</div>
                             </div>
-                            <div className="mybookings-price"></div>
+                            <div className="mybookings-price">{`${booking.Spot.price} per night`}</div>
                         </div>
                         <div className="mybookings-button-container">
-
+                            <DeleteBookingModal booking={booking}/>
                         </div>
                     </div>
                 ))}

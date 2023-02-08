@@ -5,6 +5,17 @@
     flex-direction: column;
 }
 
+.mybookings-image-container {
+    height: 200px;
+    width: 300px;
+}
+
+.mybookings-spot-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 .bookings-card-container {
     display: flex;
     justify-content: center;
@@ -17,4 +28,24 @@
 
 .mybookings-details-container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    gap: 8px;
+}
+
+.date-separator {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.mybookings-date-details {
+    display: flex;
+}
+
+.mybookings-button-container {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
 }

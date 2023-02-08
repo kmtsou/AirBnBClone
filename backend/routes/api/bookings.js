@@ -91,6 +91,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     if (!booking) {
         res.status(404);
         return res.json({
+            error: "Booking couldn't be found",
             message: "Booking couldn't be found",
             statusCode: 404
         });
@@ -99,6 +100,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     if (booking.startDate < today) {
         res.status(403);
         return res.json({
+            error: "Bookings that have been started can't be deleted",
             message: "Bookings that have been started can't be deleted",
             statusCode: 403
         });
