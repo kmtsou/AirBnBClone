@@ -8,6 +8,7 @@ import CLogo from './android-chrome-192x192.png'
 import myLogo from './myLogo.png';
 import LoginFromHostButton from './BecomeAHost';
 import SignupFormModal from '../SignupFormPage/SignupFormModal';
+import SearchBar from './SearchBar';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -41,6 +42,9 @@ function Navigation({ isLoaded }) {
             CloneBnB
           </div>
         </NavLink>
+      </div>
+      <div className='nav-middle'>
+        <SearchBar />
       </div>
       <div className='nav-right'>
         {sessionUser && <div className='host-spot-button'>

@@ -10,11 +10,11 @@ const { Op } = require('sequelize');
 const validateSearch = [
     check('page')
         .optional()
-        .isInt({min: 1, max: 20})
+        .isInt({ min: 1, max: 20 })
         .withMessage("Page must be greater than or equal to 1"),
     check('size')
         .optional()
-        .isInt({min: 1, max: 20})
+        .isInt({ min: 1, max: 20 })
         .withMessage("Size must be greater than or equal to 1"),
     check('minLat')
         .optional()
@@ -34,20 +34,20 @@ const validateSearch = [
         .withMessage("Maximum longtude is invalid"),
     check('minPrice')
         .optional()
-        .isInt({min: 0})
+        .isInt({ min: 0 })
         .withMessage("Minimum price must be greater than or equal to 0"),
     check('maxPrice')
         .optional()
-        .isInt({min: 0})
+        .isInt({ min: 0 })
         .withMessage("Maximum price must be greater than or equal to 0"),
     handleValidationErrors
 ];
 
 router.get('/', validateSearch, async (req, res) => {
 
-    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
-    if (!page) {page = 1;};
-    if (!size) {size = 20};
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    if (!page) { page = 1; };
+    if (!size) { size = 20 };
     page = parseInt(page);
     size = parseInt(size);
     const pagination = {}
@@ -56,15 +56,21 @@ router.get('/', validateSearch, async (req, res) => {
         pagination.offset = size * (page - 1);
     };
     let where = {};
-    if (minLat) {where.lat = { [Op.gte]: parseInt(minLat) }};
-    if (maxLat) {where.lat = { [Op.lte]: parseInt(maxLat) }};
-    if (minLng) {where.lng = { [Op.gte]: parseInt(minLng) }};
-    if (maxLng) {where.lng = { [Op.lte]: parseInt(maxLng) }};
-    if (minPrice) {where.price = { [Op.gte]: parseInt(minPrice) }};
-    if (maxPrice) {where.price = { [Op.lte]: parseInt(minPrice) }};
+    if (minLat) { where.lat = { [Op.gte]: parseInt(minLat) } };
+    if (maxLat) { where.lat = { [Op.lte]: parseInt(maxLat) } };
+    if (minLng) { where.lng = { [Op.gte]: parseInt(minLng) } };
+    if (maxLng) { where.lng = { [Op.lte]: parseInt(maxLng) } };
+    if (minPrice) { where.price = { [Op.gte]: parseInt(minPrice) } };
+    if (maxPrice) { where.price = { [Op.lte]: parseInt(minPrice) } };
 
     const allSpots = await Spot.findAll({
-        where,
+        include: [
+            {
+                model: User,
+                as: "Owner",
+                attributes: ["id", "firstName", "lastName"],
+            },
+        ],
         ...pagination
     });
 
@@ -82,7 +88,7 @@ router.get('/', validateSearch, async (req, res) => {
         group: ['Spot.id']
     })
     const theImages = await Image.findAll({
-        where: {spotId: {[Op.not]: null}}
+        where: { spotId: { [Op.not]: null } }
     });
 
     let responce = [];
@@ -100,7 +106,8 @@ router.get('/', validateSearch, async (req, res) => {
             description: spot.description,
             price: spot.price,
             createdAt: spot.createdAt,
-            updatedAt: spot.updatedAt
+            updatedAt: spot.updatedAt,
+            Owner: spot.Owner
         };
         responce.push(aSpot);
     };
@@ -110,7 +117,7 @@ router.get('/', validateSearch, async (req, res) => {
                 responce[i].previewImage = pic.dataValues.url
             }
         }
-        for (let avg of theAvg){
+        for (let avg of theAvg) {
             if (avg.dataValues.id === responce[i].spot) {
                 responce[i].avgRating = avg.dataValues.avgRating
             }
@@ -118,13 +125,13 @@ router.get('/', validateSearch, async (req, res) => {
     }
 
 
-    return res.json({Spots: responce});
+    return res.json({ Spots: responce });
 });
 
 
 router.get('/current', requireAuth, async (req, res) => {
     const currentSpots = await Spot.findAll({
-        where: {ownerId: req.user.id},
+        where: { ownerId: req.user.id },
         attributes: {
             include: [
                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
@@ -139,7 +146,7 @@ router.get('/current', requireAuth, async (req, res) => {
     });
 
     const theImages = await Image.findAll({
-        where: {spotId: {[Op.not]: null}}
+        where: { spotId: { [Op.not]: null } }
     });
 
     let responce = [];
@@ -205,13 +212,13 @@ router.get('/:spotId', async (req, res) => {
     };
 
     const theImages = await Image.findAll({
-        where: {spotId: req.params.spotId}
+        where: { spotId: req.params.spotId }
     });
 
     let Images = []
     for (let pic of theImages) {
         if (pic) {
-            Images.push({id: pic.dataValues.id, url: pic.dataValues.url, spotId: pic.dataValues.spotId})
+            Images.push({ id: pic.dataValues.id, url: pic.dataValues.url, spotId: pic.dataValues.spotId })
         }
     }
 
@@ -248,34 +255,34 @@ router.get('/:spotId', async (req, res) => {
 
 const validateSpot = [
     check('address')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage('Street address is required'),
     check('city')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("City is required"),
     check('state')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("State is required"),
     check('country')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("Contry is require"),
     check('lat')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .isDecimal()
         .withMessage("Latitude not valid"),
     check('lng')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .isDecimal()
         .withMessage("Longitude is not valid"),
     check('name')
-        .exists({checkFalsy: true})
-        .isLength({max: 50})
+        .exists({ checkFalsy: true })
+        .isLength({ max: 50 })
         .withMessage("Name must be less than 50 characters"),
     check('description')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("Description is required"),
     check('price')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("Price per day is required"),
     handleValidationErrors
 ];
@@ -340,7 +347,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 });
 
 
-router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     const theSpot = await Spot.findByPk(req.params.spotId);
     if (!theSpot) {
         res.status(404);
@@ -400,7 +407,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 router.get('/:spotId/reviews', async (req, res) => {
     const spotReviews = await Review.findAll({
-        where: {spotId: req.params.spotId},
+        where: { spotId: req.params.spotId },
         include: [
             {
                 model: User,
@@ -426,11 +433,11 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 const validateReview = [
     check('review')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("Review text is required"),
     check('stars')
-        .exists({checkFalsy: true})
-        .isInt({min: 1, max:5})
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
         .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
 ];
@@ -446,8 +453,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
         });
     };
     const userReview = await Review.findOne({
-        include: {model: Spot},
-        where: {userId: req.user.id, spotId: req.params.spotId}
+        include: { model: Spot },
+        where: { userId: req.user.id, spotId: req.params.spotId }
     })
     if (userReview) {
         res.status(403);
@@ -483,15 +490,15 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     };
     if (spotCheck.ownerId !== req.user.id) {
         const spotBookings = await Booking.findAll({
-            where: {spotId: req.params.spotId},
+            where: { spotId: req.params.spotId },
             attributes: ['id', 'spotId', 'startDate', 'endDate']
         });
         return res.json(spotBookings);
     }
     else {
         const ownerSpotBookings = await Booking.findAll({
-            where: {spotId: req.params.spotId},
-            include: {model: User, attributes: ['id', 'firstName', 'lastName']}
+            where: { spotId: req.params.spotId },
+            include: { model: User, attributes: ['id', 'firstName', 'lastName'] }
         });
         return res.json(ownerSpotBookings);
     };
@@ -499,7 +506,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 
 const validateBooking = [
     check('endDate')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .isAfter(this.startDate)
         .withMessage("endDate cannot be on or before startDate"),
     handleValidationErrors
@@ -522,7 +529,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
         return next(err);
     };
     const spotBookings = await Booking.findAll({
-        where: {spotId: req.params.spotId}
+        where: { spotId: req.params.spotId }
     });
 
     const { startDate, endDate } = req.body;

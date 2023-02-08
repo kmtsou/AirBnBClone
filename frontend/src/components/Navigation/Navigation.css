@@ -16,6 +16,13 @@
     position: relative;
 }
 
+.nav-middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+
 .nav-left {
     display: flex;
     height: 100%;
