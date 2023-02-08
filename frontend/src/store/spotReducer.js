@@ -7,6 +7,7 @@ const DELETE_SPOT = 'spots/deleteSpot';
 const LOAD_ONE_SPOT = 'spots/loadOneSpot';
 const LOAD_CURRENT_USER_SPOTS = 'spots/loadCurrentUserSpots'
 const ADD_IMAGE_TO_SPOT = 'spots/images/addSpotImage'
+const DELETE_IMAGE_FROM_SPOT = 'spots/images/removeSpotImage'
 
 export const loadSpots = (data) => {
     return {
@@ -55,6 +56,14 @@ export const addImageToSpot = (data, id) => {
         type: ADD_IMAGE_TO_SPOT,
         payload: data,
         id: id
+    }
+}
+
+const removeImageFromSpot = (id, spotId) => {
+    return {
+        type: DELETE_IMAGE_FROM_SPOT,
+        id,
+        spotId
     }
 }
 
@@ -127,14 +136,27 @@ export const thunkDeleteSpot = (id) => async dispatch => {
 }
 
 export const thunkAddSpotImage = (data, id) => async dispatch => {
-    const responce = await csrfFetch(`/api/spots/${id}/images`, {
+    const response = await csrfFetch(`/api/spots/${id}/images`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
-    if (responce.ok) {
-        const image = await responce.json();
+    if (response.ok) {
+        const image = await response.json();
         dispatch(addImageToSpot(data.url, id))
+        return image;
+    }
+}
+
+export const thunkRemoveSpotImage = (id, spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/images/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(removeImageFromSpot(id, spotId))
         return image;
     }
 }
@@ -157,6 +179,9 @@ const spotReducer = (state = {}, action) => {
             return newState;
         case ADD_IMAGE_TO_SPOT:
             return { ...state, [action.id]: { ...state[action.id], previewImage: action.payload } };
+        case DELETE_IMAGE_FROM_SPOT:
+            let removeImgState = {...state}
+            return removeImgState;
         case LOAD_ONE_SPOT:
             let spotState = {...state}
             spotState[action.data.spot] = action.data

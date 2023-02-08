@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkUpdateSpot } from '../../store/spotReducer';
+import { thunkGetOneSpot, thunkUpdateSpot } from '../../store/spotReducer';
 import './UpdateSpotForm.css'
 
 const UpdateSpotForm = () => {
@@ -10,18 +10,36 @@ const UpdateSpotForm = () => {
     const { spotId } = useParams();
     const spot = useSelector(state => state.spots[spotId]);
     // if (!spot) return null;
-    const [name, setName] = useState(spot.name || '');
-    const [address, setAddress] = useState(spot.address || '');
-    const [city, setCity] = useState(spot.city || '');
-    const [state, setState] = useState(spot.state || '');
-    const [country, setCountry] = useState(spot.country || '');
-    const [description, setDescription] = useState(spot.description || '');
-    const [price, setPrice] = useState(spot.price || 0);
-    const [lat, setLat] = useState(spot.lat || 0.0);
-    const [lng, setLng] = useState(spot.lng || 0.0);
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState(0);
+    const [lat, setLat] = useState(0.0);
+    const [lng, setLng] = useState(0.0);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
+
+    useEffect(() => {
+        dispatch(thunkGetOneSpot(spotId))
+    }, [dispatch, spotId])
+
+    useEffect(() => {
+        if (spot) {
+            setName(spot.name || '');
+            setAddress(spot.address || '');
+            setCity(spot.city || '');
+            setState(spot.state || '');
+            setCountry(spot.country || '');
+            setDescription(spot.description || '');
+            setPrice(spot.price || 0);
+            setLat(spot.lat || 0.0);
+            setLng(spot.lng || 0.0);
+        }
+    }, [spot])
 
     useEffect(() => {
         let errors = [];
@@ -71,6 +89,7 @@ const UpdateSpotForm = () => {
             history.push(`/spots/${updatedSpot.id}`)
         }
     };
+
 
     return (
         <section className='update-spot-form-container'>
