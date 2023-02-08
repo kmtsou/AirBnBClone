@@ -9,14 +9,14 @@ const BookingsPanel = ({ spot, rating }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session.user);
-    const bookings = useSelector(state => state.bookings);
+    // const bookings = useSelector(state => state.bookings);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [errors, setErrors] = useState([]);
     // const [hasSubmitted, setHasSubmitted] = useState(false);
 
-    const bookingsArray = Object.values(bookings)
+    // const bookingsArray = Object.values(bookings)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +41,7 @@ const BookingsPanel = ({ spot, rating }) => {
         let newBooking = await dispatch(thunkCreateBooking(spot.id || spot.spot, payload)).catch(async (res) => {
             const data = await res.json()
             let errors = []
-            if (data && data.errors) {
+            if (data && data.message) {
                 errors.push(data.message)
             }
             setErrors(errors)

@@ -5,6 +5,7 @@ import { thunkGetUserBookings } from "../../store/bookingsReducer";
 import { thunkGetSpots } from "../../store/spotReducer";
 import './CurrentBookings.css'
 import DeleteBookingModal from "./DeleteBookingModal";
+import UpdateBookingModal from "./UpdateBookingModal";
 
 const UserBookings = () => {
     const dispatch = useDispatch();
@@ -62,6 +63,7 @@ const UserBookings = () => {
                             <div className="mybookings-price">{`${booking.Spot.price} per night`}</div>
                         </div>
                         <div className="mybookings-button-container">
+                            <UpdateBookingModal booking={booking} />
                             <DeleteBookingModal booking={booking}/>
                         </div>
                     </div>

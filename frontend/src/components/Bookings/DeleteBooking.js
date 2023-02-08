@@ -30,7 +30,7 @@ const DeleteBooking = ({ booking, setShowModal }) => {
             <div>Are you sure you would like to cancel your reservation?</div>
             {errors.length > 0 && (
                 errors.map((error, idx) => (
-                    <div key={idx}>{error}</div>
+                    <div key={idx} className='delete-booking-error-line'>{error}</div>
                 ))
             )}
             <div className="bookings-delete-btn-container">

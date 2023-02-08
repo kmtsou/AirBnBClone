@@ -42,3 +42,7 @@
     color: white;
     background-color: #f55;
 }
+
+.delete-booking-error-line {
+    color: red;
+}

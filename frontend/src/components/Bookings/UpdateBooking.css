@@ -1,0 +1,56 @@
+.booking-update-modal-button {
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f55;
+}
+
+.update-booking-modal-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    min-height: 150px;
+    min-width: 420px;
+}
+
+.update-booking-cancel {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f55;
+}
+
+.update-bookings-button {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #f55;
+}
+
+.updated-bookings-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 22px;
+}
+
+.update-bookings-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.update-booking-modal-header{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
