@@ -102,3 +102,13 @@
 .myspots-navlink-text:hover {
     background-color: #F5F5F5;
 }
+
+.myspots-logout-div {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.myspots-logout-div:hover {
+    background-color: #F5F5F5;
+}
