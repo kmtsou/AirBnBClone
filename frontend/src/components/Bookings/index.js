@@ -51,9 +51,9 @@ const BookingsPanel = ({ spot, rating }) => {
         }
     };
 
-    useEffect(() => {
-        dispatch(thunkGetSpotBookings(spot.id || spot.spot))
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(thunkGetSpotBookings(spot.id || spot.spot))
+    // }, [dispatch])
 
     useEffect(() => {
         let errors = [];

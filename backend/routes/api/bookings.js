@@ -7,18 +7,48 @@ const { handleValidationErrors } = require('../../utils/validation.js');
 const { User, Review, Booking, Spot, Image, sequelize } = require('../../db/models');
 
 router.get('/current', requireAuth, async (req, res) => {
+    // const currentBookings = await Booking.findAll({
+    //     where: {userId: req.user.id},
+    //     include: [
+    //         {model: Spot, attributes: {exclude: ['createdAt', 'updatedAt']}, include: [{model: Image, attributes: ['url', 'previewImage']}]}
+    //     ],
+    //     raw: true
+    // });
     const currentBookings = await Booking.findAll({
-        where: {userId: req.user.id},
-        include: [
-            {model: Spot, attributes: {exclude: ['createdAt', 'updatedAt']}, include: {model: Image, attributes: ['url']}}
-        ]
+        where: { userId: req.user.id },
+        raw: true
     });
+
+    for (let i = 0; i < currentBookings.length; i++) {
+        const booking = currentBookings[i];
+        const spot = await Spot.findOne({
+            where: { id: booking.spotId },
+            attributes: {
+                exclude: ['description', 'createdAt', 'updatedAt']
+            },
+            raw: true
+        });
+        const spotImgs = await Image.findAll({
+            where: { spotId: spot.id },
+            raw: true
+        })
+        spotImgs.forEach(image => {
+            if (image.previewImage === true || image.previewImage === 1) {
+                spot.previewImage = image.url
+            }
+        })
+        if (!spot.previewImage) {
+            spot.previewImage = null
+        }
+        booking.Spot = spot
+    }
+
     return res.json(currentBookings);
 });
 
 const validateBooking = [
     check('endDate')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .isAfter(this.startDate)
         .withMessage("endDate cannot be on or before startDate"),
     handleValidationErrors
@@ -26,7 +56,7 @@ const validateBooking = [
 
 router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) => {
     const booking = await Booking.findByPk(req.params.bookingId);
-    if (!booking){
+    if (!booking) {
         res.status(404);
         return res.json({
             message: "Booking couldn't be found",
@@ -74,8 +104,8 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         });
     };
 
-    const spotOwner = await Booking.findByPk( req.params.bookingId,{
-        include: {model: Spot}
+    const spotOwner = await Booking.findByPk(req.params.bookingId, {
+        include: { model: Spot }
     });
     if (booking.userId !== req.user.id && spotOwner.Spot.ownerId !== req.user.id) {
         const err = new Error('Forbidden');

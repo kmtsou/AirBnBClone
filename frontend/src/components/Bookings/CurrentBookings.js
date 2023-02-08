@@ -14,8 +14,8 @@ const UserBookings = () => {
     const bookingsArray = Object.values(bookings)
 
     useEffect(() => {
+        dispatch(thunkGetSpots())
         dispatch(thunkGetUserBookings())
-        // dispatch(thunkGetSpots())
     }, [])
 
     if (!user) history.push('/')
@@ -41,7 +41,9 @@ const UserBookings = () => {
                     <div className="booking-card" key={i}>
                         <div className="mybookings-image-container">
                             {/* <NavLink className='mybookings-navlink' to={`/spots/${booking.spotId}`}>
-                                <img className="mybookings-spot-image"></img>
+                                <img className="mybookings-spot-image" src={booking.Spot.previewImage} alt={booking.Spot.name}
+                                onError={(e) => e.target.src="https://i.imgur.com/udFhU6r.png"}
+                                ></img>
                             </NavLink> */}
                         </div>
                         <div className="mybookings-details-container">
