@@ -27,8 +27,9 @@ const UpdateBooking = ({ booking, setShowModal, spotId }) => {
             endDate
         };
         let updatedBooking = await dispatch(thunkEditBooking(booking.id, payload)).catch(async (res) => {
-            const data = await res.json()
-            let errors = []
+            console.log(res)
+            const data = await res.json();
+            let errors = [];
             if (data && data.message) {
                 errors.push(data.message)
             }

@@ -34,11 +34,10 @@ const deleteBooking = (id) => {
     }
 };
 
-const updateBooking = (data, id) => {
+const updateBooking = (payload) => {
     return {
         type: UPDATE_BOOKING,
-        id: id,
-        data
+        payload
     }
 };
 
@@ -94,7 +93,7 @@ export const thunkDeleteBooking = (id) => async dispatch => {
     })
     if (response.ok) {
         const data = await response.json()
-        dispatch(deleteBooking(data))
+        dispatch(deleteBooking(id))
         return data;
     }
 
@@ -114,7 +113,7 @@ const bookingsReducer = (state = {}, action) => {
             return createState;
         case UPDATE_BOOKING:
             let updatedState = { ...state }
-            updatedState[action.payload.id] = action.payload
+            updatedState[action.payload.id] = { ...state[action.payload.id], ...action.payload}
             return updatedState;
         case DELETE_BOOKING:
             let deleteState = { ...state }

@@ -22,7 +22,7 @@ const UserBookings = () => {
 
     if (!user) history.push('/')
 
-    if (!bookingsArray || bookingsArray.length === 0) {
+    if (!bookingsArray || bookingsArray.length === 0 || !bookingsArray[bookingsArray.length - 1].Spot) {
         return (
             <div className="current-bookings-container">
                 <div className="mybookings-header">
