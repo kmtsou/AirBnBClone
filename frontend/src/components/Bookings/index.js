@@ -7,16 +7,20 @@ import './BookingsPanel.css'
 
 const BookingsPanel = ({ spot, rating }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const bookings = useSelector(state => state.bookings);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
+    // const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const bookingsArray = Object.values(bookings)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // setHasSubmitted(true);
         if (!user) {
             alert("Login to make a booking")
             return;
@@ -25,7 +29,10 @@ const BookingsPanel = ({ spot, rating }) => {
             alert("Owner can't book own property")
             return;
         }
-
+        if (validationErrors.length > 0) {
+            return;
+        }
+        setErrors([]);
         const payload = {
             startDate,
             endDate
@@ -37,9 +44,9 @@ const BookingsPanel = ({ spot, rating }) => {
             if (data && data.errors) {
                 errors.push(data.message)
             }
-            setValidationErrors(errors)
+            setErrors(errors)
         })
-        if (newBooking) {
+        if (newBooking && !newBooking.errors) {
             history.push('/bookings/current')
         }
     };
@@ -85,6 +92,11 @@ const BookingsPanel = ({ spot, rating }) => {
                     {validationErrors.length > 0 && (
                         <ul className='bookings-errors'>
                             {validationErrors.map((error) => <li key={error} className='bookings-error-line'>{error}</li>)}
+                        </ul>
+                    )}
+                    {errors.length > 0 && (
+                        <ul className='booking-errors'>
+                            {errors.map((error, idx) => <li key={idx} className='bookings-error-line'>{error}</li>)}
                         </ul>
                     )}
                     <div className='bookings-date-inputs'>

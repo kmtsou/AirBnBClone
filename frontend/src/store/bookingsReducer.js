@@ -104,7 +104,7 @@ const bookingsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOT_BOOKINGS:
             let loadState = {};
-            action.payload.bookings.forEach(booking => {
+            action.payload.forEach(booking => {
                 loadState[booking.id] = booking
             })
             return loadState;
@@ -122,7 +122,7 @@ const bookingsReducer = (state = {}, action) => {
             return deleteState;
         case LOAD_CURRENT_USER_BOOKINGS:
             let loadUserBookings = {};
-            action.payload.bookings.forEach(booking => {
+            action.payload.forEach(booking => {
                 loadUserBookings[booking.id] = booking
             })
             return loadUserBookings;
