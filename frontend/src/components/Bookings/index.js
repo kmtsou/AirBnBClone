@@ -74,6 +74,8 @@ const BookingsPanel = ({ spot, rating }) => {
     date.setDate(date.getDate() + 1)
     let minDate = date.toISOString().split("T")[0]
 
+    let numberOfDays = Number(new Date(endDate).getDate() - new Date(startDate).getDate())
+
 
     return (
         <div className='bookings-panel-container'>
@@ -133,8 +135,8 @@ const BookingsPanel = ({ spot, rating }) => {
             <div className='bookings-panel-footer'>
                 <div className='bookings-panel-footer-details'>
                     <div className='price-details'>
-                        <div>{`$${spot.price} x ${Number(new Date(endDate).getDate() - new Date(startDate).getDate())} nights`}</div>
-                        <div>{`$${spot.price * Number(new Date(endDate).getDate() - new Date(startDate).getDate())}`}</div>
+                        <div>{`$${spot.price} x ${Number.isNaN(numberOfDays) ? 0 : numberOfDays} nights`}</div>
+                        <div>{`$${spot.price * (Number.isNaN(numberOfDays) ? 0 : numberOfDays)}`}</div>
                     </div>
                     <div className='price-details'>
                         <div>Cleaning Fee</div>
@@ -147,7 +149,7 @@ const BookingsPanel = ({ spot, rating }) => {
                 </div>
                 <div className='price-details-total'>
                     <div>Final Total</div>
-                    <div>{`$${spot.price * Number(new Date(endDate).getDate() - new Date(startDate).getDate()) + 45 + 60}`}</div>
+                    <div>{`$${Number.isNaN(numberOfDays) ? 0 : (spot.price * numberOfDays + 45 + 60)}`}</div>
                 </div>
             </div>
 
