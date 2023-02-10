@@ -14,12 +14,12 @@ const UpdateBooking = ({ booking, setShowModal, spotId }) => {
 
     useEffect(() => {
         if (booking) {
-            // let prepopulatedStart = new Date(booking.startDate);
-            // let prepopulatedEnd = new Date(booking.endDate);
-            // setStartDate(prepopulatedStart.toISOString().split("T")[0])
-            // setEndDate(prepopulatedEnd.toISOString().split("T")[0])
-            setStartDate(booking.startDate.split(' ')[0])
-            setEndDate(booking.endDate.split(' ')[0])
+            let prepopulatedStart = new Date(booking.startDate);
+            let prepopulatedEnd = new Date(booking.endDate);
+            setStartDate(prepopulatedStart.toISOString().split("T")[0])
+            setEndDate(prepopulatedEnd.toISOString().split("T")[0])
+            // setStartDate(booking.startDate.split(' ')[0])
+            // setEndDate(booking.endDate.split(' ')[0])
         }
     }, [booking])
 
