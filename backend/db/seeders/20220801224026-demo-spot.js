@@ -54,7 +54,6 @@ module.exports = {
         lng: -120.4730327,
         name: "Peaceful Lake House",
         description: "This beautiful lake house located right beside a large expansive lake in Colorado is perfect getaway into what nature has to offer. This spot can house upt to three guests with two bedrooms and two baths. This stay has many activities nature has to offer from fishing to hiking. Guaranteed you will find some peace in nature here.",
-        type:"House",
         price: 350
       },
       {
@@ -67,7 +66,6 @@ module.exports = {
         lng: -120.4730327,
         name: "Beautiful Condo",
         description: "This beautiful luxury condo is a perfect vaction spot for couples. This condo can house two guests with one bedroom and 2 baths. The condo has a accomidiating pool while not being too far away from the beach.",
-        type:"Condo",
         price: 520
       },
       {
