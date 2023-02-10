@@ -79,7 +79,7 @@ module.exports = {
         name: "Rustic Home up in the woods",
         description:
           "Nice cabin-styled home with many rooms and bathrooms for a nice snowboard/ski trip up in the woods.",
-        price: 950,
+        price: 950
       },
       {
         ownerId: 1,
@@ -152,7 +152,7 @@ module.exports = {
         name: "White cottage home in the area of San Antonio",
         description:
           "Recently finished home that is ready for rental usage. Please contact the owner if you have any questions.",
-        price: 650,
+        price: 650
       },
       {
         ownerId: 5,
@@ -165,7 +165,7 @@ module.exports = {
         name: "Very spacious townhouse that is close to the city",
         description:
           "Only a 10 minute walk into the city of Austin with many restaurants nearby.",
-        price: 650,
+        price: 650
       },
     ], {});
   },
